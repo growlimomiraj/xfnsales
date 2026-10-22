@@ -1,0 +1,376 @@
+Build a complete, responsive website in Google AI Studio using the two references below. Act as a meticulous frontend developer who specializes in matching existing website designs.
+
+PRIMARY REFERENCE — the entire main website:
+https://xfnsales.us/#3
+
+SECONDARY REFERENCE — only the continuous lower portion beginning at “Important Service Disclosures & Boundaries” and ending at the very bottom:
+https://wawysupport.com/
+
+The required result is XFN Sales’ complete main-page design, followed by Wawy Support’s disclosure section, service FAQ, privacy summary, and complete footer. Apply XFN Sales’ purple, white, light-gray, and black theme to every section.
+
+This is a precise reconstruction brief. Implement the actual working website, including interactions and policy views. Do not stop after explaining your approach.
+
+1. REFERENCE PRIORITY AND MERGE RULES
+
+• XFN controls the page’s overall appearance: header, ZIP checker, hero, pricing layouts, typography, buttons, card styling, backgrounds, spacing, and product FAQ carousel.
+• Wawy contributes ONLY its lower disclosure-to-footer sequence. Its hero, blue theme, technology cards, trust statistics, process section, and pricing cards are outside the requested merge.
+• Keep every XFN main-content section in its original order, including its product FAQ carousel.
+• After that carousel, append the Wawy disclosure section, its separate service FAQ accordion, its privacy summary, and its complete footer.
+• Use one final footer. Transfer the XFN-style wordmark into the Wawy-style footer structure instead of placing two footers consecutively.
+• The #3 fragment in the primary reference is part of the supplied reference URL; it does not mean to rebuild only the third section.
+• Match the reference geometry closely. Do not introduce a new navigation menu, extra promotional sections, a dashboard, or an unrelated visual style.
+
+If you can inspect websites, scroll through both references before implementation. Inspect the second only from the specified starting section downward. If your environment cannot inspect the URLs, use the measured blueprint below and any attached screenshots. State that limitation accurately; do not claim you inspected pages that were unavailable.
+
+2. BUSINESS CONFIGURATION AND CONTENT
+
+Put the business identity, contact details, plan data, promotional terms, FAQs, and policies in editable configuration/data files.
+
+Use:
+BRAND_NAME = "[YOUR BRAND]"
+DOMAIN = "[YOUR DOMAIN]"
+PHONE_DISPLAY = "[YOUR PHONE NUMBER]"
+PHONE_E164 = ""
+SUPPORT_EMAIL = "[YOUR SUPPORT EMAIL]"
+BUSINESS_ROLE = "independent comparison and referral service"
+
+Keep placeholders obvious in the preview until real details are provided. Do not route calls or emails to either reference company. Render a working tel: or mailto: link only when a valid configured destination exists; otherwise show a useful contact-setup message.
+
+Use concise original paragraphs or owner-provided approved copy, maintaining the same subject, hierarchy, approximate length, and visual density as each reference. Keep all required sections populated. Avoid lorem ipsum.
+
+Maintain consistent business claims across the entire page. When operating as an independent comparison service, distinguish the service’s advisory role from the carrier’s network, billing, installation, and contractual terms.
+
+Reference prices and promotions are preview data, not verification of this new business’s offers. Keep prices, price protection, savings, mobile extras, awards, reliability figures, and eligibility conditions editable and identify unconfirmed items in the handover notes. Do not manufacture ratings, affiliations, operational capabilities, or privacy promises.
+
+3. GLOBAL VISUAL SYSTEM
+
+The following desktop measurements were observed on XFN at a viewport approximately 1363px wide:
+
+Colors:
+• Primary purple: #6D2EFF.
+• Deep hero purple: #2B0A6E.
+• Main pale background: #F4F4F6.
+• White cards and header: #FFFFFF.
+• Main text and dark buttons: #0A0A0A.
+• Secondary text: approximately #5A5A5A.
+• Neutral card borders: #E6E6EA.
+• Input background: #F7F7F9.
+• Input border: #C9C9D1.
+• Recognition panel gradient: linear-gradient(100deg, #EFEAFF, #F7F3FF 45%, #EAE3FF).
+• Eligibility strip gradient: linear-gradient(100deg, #5B21E0, #7331F2).
+
+Use CSS variables for these colors and shared spacing. Recolor the imported Wawy sections into these tokens. Its yellow disclosure background, blue accents, green/red card styling, and navy footer should become appropriate purple, lavender, neutral, and deep-purple equivalents. Differentiate the two disclosure cards with labels and icons as well as tonal contrast.
+
+Font:
+-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif.
+
+Use XFN’s system font throughout, including the imported sections. Do not mix in Wawy’s separate typeface.
+
+Layout:
+• Center the main content in a maximum-width 1180px container, including 24px padding on each side.
+• At that width, the usable interior is approximately 1132px.
+• Full-width section backgrounds extend beyond this container.
+• Typical desktop section padding: 72px vertically.
+• Main pricing grid gap: 26px.
+• Main card corner radius: 16px.
+• Feature-banner corner radius: 24px.
+• Main card shadow: 0 6px 24px rgba(20,10,60,0.09).
+• Main headings are weight 800.
+• Body copy is mostly 15–17px with comfortable line height.
+• Preserve strong price typography and generous whitespace.
+
+Rebuild clean layout geometry. Avoid the horizontal overflow visible on the references; do not reproduce layout bugs.
+
+4. EXACT TOP-TO-BOTTOM PAGE BLUEPRINT
+
+A. Compact header
+
+Create a white header approximately 65px tall with a fine lower border. Align its content to the shared container.
+
+Place a compact wordmark on the left, approximately 25px and weight 600. Use dark text with the ending portion in purple where the configured brand name allows.
+
+Place a purple pill-shaped telephone CTA on the right, with a small line phone icon and white text. Match approximately 44–45px button height, 15px bold text, 11px 21px padding, and fully rounded corners.
+
+Keep the header visually simple, matching the primary reference.
+
+B. ZIP finder
+
+Immediately beneath the header, create a wide light-gray section. On desktop, use approximately 52px top padding and 58px bottom padding.
+
+Center a large, bold ZIP-entry heading, approximately 50px with 1.15 line height. Put one short explanatory sentence beneath it.
+
+Below the introduction, use a full-width horizontal form: visible ZIP label above the left field, a broad input, and the black “Find My Plan” button to the right.
+
+Match:
+• 58px input and button height.
+• 8px corner radius.
+• 17px input and button type.
+• Subtle gray field background and border.
+• About 18px horizontal field padding.
+• Button width approximately 165px.
+• Approximately 18px between the field and button.
+
+Keep the form inside the shared container. Use a labeled text input with numeric input mode so leading zeros are retained.
+
+C. Internet category heading
+
+Add the separate, left-aligned purple category heading underneath the ZIP section and above the hero. Match approximately 36px, weight 800, on the pale background with generous surrounding space.
+
+D. Purple promotional hero
+
+Build a full-width purple hero approximately 385px tall at the reference desktop width. Its content aligns with the shared container.
+
+Left side:
+• A large white promotional headline at about 40px, weight 800.
+• A short bold savings/support line below.
+• A compact supporting paragraph, constrained to approximately 450–500px.
+
+Right side:
+• The oversized white numeral and multiline price-protection motif shown in the primary reference.
+• Match the reference’s dominant right-side scale and composition.
+
+Observed hero image URL:
+https://xfnsales.us/wp-content/uploads/2026/08/Archer-Relaunch_Hero_Desktop-scaled.avif
+
+Use an approved supplied/local version of that asset when available. It already includes the large right-side promotional artwork; do not render that lettering twice. Avoid stretching or placing left-side text over the right-side graphic.
+
+If the asset cannot be loaded, recreate its purple/indigo gradient composition and oversized typographic motif with CSS and HTML. Keep the same composition instead of substituting a stock photograph.
+
+The hero has approximately 78px top padding and extra bottom space for the overlapping cards. Provide an accessible text equivalent for any meaningful artwork containing text. Keep the artwork consistent with the configured promotion.
+
+E. Two overlapping featured-offer cards
+
+Place two equal-width white offer cards across the hero’s lower edge, overlapping it by approximately 84px.
+
+At the reference desktop width:
+• Two columns of approximately 553px each.
+• 26px gap.
+• Approximately 34px vertical and 32px horizontal padding.
+• 16px radius and the shared soft shadow.
+• Similar heights, around 293px before responsive content adjustments.
+
+Each card contains a heading with its speed-related portion in purple, a muted supporting line, a very large black price, a compact billing-period label, a dark pill CTA, and an underlined pricing-details action.
+
+Reference preview offers:
+• 300 Mbps at $40/month.
+• Gigabit at $50/month.
+• The reference presents a five-year promotional period; keep this configurable.
+
+Use a large price numeral around 72px, smaller raised currency symbol, and compact adjacent period text. Keep the price construction as real text.
+
+Under the pair, add a centered, compact offer-conditions paragraph within roughly 880px. Preserve the reference’s fine-print hierarchy while keeping it legible.
+
+F. Main three-column plan comparison
+
+Continue on the pale-gray background with roughly 72px vertical section spacing.
+
+At the top, use a left-aligned heading around 33px, weight 800, with its concluding phrase emphasized in purple. Follow it with a short explanatory paragraph.
+
+Render three equal-height white cards, approximately 360px wide at the reference desktop width, separated by 26px.
+
+Reference preview tiers:
+• 300 Mbps — $40/month.
+• 500 Mbps — $45/month.
+• 1 Gig — $50/month.
+
+Each card contains:
+• Purple speed label.
+• Short bold household-use descriptor.
+• Large black price and small billing-period text.
+• A vertical list of four or five benefit rows with purple circular check icons.
+• An outlined pill-shaped plan CTA.
+• An underlined details link.
+
+Keep benefit rows and bottom actions aligned. Use flex layouts to anchor actions consistently without truncating the longer tier.
+
+Benefit topics may cover introductory price terms, included equipment/data, suitability for household usage, mobile or streaming extras, and contract conditions, using the actual configured offer terms.
+
+Add the separate compact conditions paragraph below the grid.
+
+G. Recognition-style panel
+
+Reproduce the wide, centered, rounded lavender-gradient panel.
+
+Match approximately:
+• 24px radius.
+• 48px vertical and 28px horizontal padding.
+• 220px overall desktop height, content permitting.
+• Centered purple heading around 27px.
+• A centered supporting line.
+• A small WiFi-style icon and letter-spaced badge line beneath.
+
+Keep award or ranking claims data-driven. If no documented recognition is supplied, preserve this panel’s design using a factual service-benefit message.
+
+H. Eligibility strip
+
+Directly below the recognition panel, create a broad purple-gradient strip with a 24px radius.
+
+Use approximately 34px vertical and 44px horizontal padding, with three aligned desktop regions:
+• Short program label on the left.
+• White headline and supporting copy in the center.
+• White pill CTA on the right.
+
+The reference shows a discounted plan below $15/month for qualifying households. Treat that amount and eligibility conditions as configurable preview information.
+
+Place a compact centered conditions paragraph below this strip.
+
+I. XFN-style product FAQ carousel
+
+Retain this section before adding the Wawy lower portion.
+
+Use the pale background, approximately 72px vertical padding, and a left-aligned heading around 33px.
+
+Create six question cards covering these subjects:
+• Promotional rate protection.
+• Contract and cancellation terms.
+• Available network-security features.
+• Equipment costs.
+• Installation or activation timing.
+• Choosing an appropriate speed.
+
+On desktop, show three cards at once with approximately 20px gaps. Each card is white with a fine neutral border, 12px radius, and about 30px vertical/28px horizontal padding.
+
+Question headings are purple, approximately 20px and weight 700. Answers remain visible inside each card; this is a carousel of expanded answers.
+
+Include circular previous/next controls and pagination dots. At three visible cards with one-card advancement across six items, there are four valid positions. Compute positions responsively instead of hardcoding an incorrect dot count.
+
+Use a uniform row height that accommodates the longest answer. Allow touch swiping and keyboard interaction. Disable arrows at the corresponding ends.
+
+J. Imported service-disclosure section — start of Wawy content
+
+Immediately after the product FAQ carousel, add the requested heading:
+“Important Service Disclosures & Boundaries”.
+
+Retain the secondary reference’s composition:
+• A small centered notice badge.
+• A large centered heading, wrapping naturally over two lines.
+• A concise centered description of the business role.
+• Two large white cards side by side.
+• Four icon-led points in each card.
+
+Use a pale-lavender section background and XFN typography. Preserve the roomy spacing: approximately 90px vertical padding, a heading block around 720px wide, a 24px grid gap, 20px card radius, and approximately 32px 28px card padding.
+
+The first card explains the service’s limitations; the second explains the assistance it offers.
+
+Use freshly written, business-accurate points addressing provider status, authorization/affiliation, network ownership and operational responsibilities, informational references, coverage comparison, offer research, advisor referrals, and consultation terms.
+
+Preserve the original two-card visual hierarchy and icon positions. Recolor into purple/neutral tones with distinct minus/cross and check icons.
+
+K. Imported service FAQ accordion
+
+Keep this separate from the preceding product carousel.
+
+Use a white background, a small centered lavender badge, a bold centered heading, and a short introduction. Below, create a narrow centered stack approximately 840px wide.
+
+Include six expandable rows addressing:
+• Connection types and geographic coverage.
+• The business’s relationship to service providers.
+• The comparison/referral process.
+• Whether consultations have a charge.
+• Variability of advertised prices and offers.
+• Assistance with reviewing an existing plan or bill.
+
+Open the first item initially. Give each row a white surface, subtle border, rounded corners, bold question, and small right-aligned chevron. Use a purple border and pale-purple chevron tile for the expanded state.
+
+Make the entire question row a semantic button with aria-expanded and aria-controls. Animate expansion gently, respect reduced motion, and support keyboard use.
+
+L. Imported privacy and consumer-trust summary
+
+Use a pale-gray section with a centered small badge, a large centered heading, and a short explanatory paragraph.
+
+Below, create one centered white card within an outer container about 900px wide. Use a 20px radius, fine gray border, and approximately 32px 28px padding.
+
+Inside this single card, stack three text groups separated by fine horizontal rules:
+• Why location/address details are needed.
+• How contact information supports requested assistance.
+• Sharing practices and communication choices.
+
+Each group has a small bold subheading and compact body text. Keep these as stacked groups, matching the reference’s layout.
+
+Describe the actual implementation. Do not claim live database lookups, data-sale guarantees, or specific security practices unless they are true.
+
+M. Complete final footer
+
+Use the Wawy footer’s full structure, recolored into deep purple with white headings, subdued lavender-gray body text, and sufficiently light purple links.
+
+Desktop layout:
+• Three columns with approximate proportions 2:1:1.
+• Around 36px column gap.
+• Approximately 64px top padding and 36px bottom padding.
+• Align the content with the rest of the combined site.
+
+First column: configured brand wordmark, short business description, telephone contact, and support email.
+
+Second column: five useful internal navigation links. Map them to sections that actually exist in this combined page: ZIP checker, plans, benefits, disclosures, and service FAQ.
+
+Third column: controls for Privacy Policy, Terms & Conditions, and Full Disclaimer.
+
+Below the columns, add:
+• A subtle separator.
+• A full-width rounded disclosure box with concise independent-service and offer-variation information.
+• A final row containing the configured brand/domain copyright at left and a short business-role label at right.
+
+Use the current year dynamically. Keep the entire footer, including the lower disclosure box and final line.
+
+5. FUNCTIONAL REQUIREMENTS
+
+ZIP flow:
+• Accept exactly five digits, retain leading zeros, and reject incomplete input with a helpful inline error.
+• Support Enter submission and preserve the entered value.
+• Without a real availability API, open an accessible advisor/contact dialog after successful format validation.
+• Clearly distinguish format validation from actual service coverage. Never claim that an address is covered merely because its ZIP has five digits.
+• Keep the configured phone CTA available in that dialog.
+• Provide close button, Escape handling, focus management, and focus restoration.
+• Never initiate a telephone call automatically.
+
+Plan CTAs:
+• Use the configured phone destination or the advisor dialog consistently.
+• Carry the selected plan into the dialog where helpful.
+• Pricing-details actions must reveal relevant plan terms or navigate to an appropriate populated details target.
+
+Policies:
+• The secondary reference opens policy content in dialogs. Reproduce usable policy dialogs with real buttons/links, headings, readable scrollable content, a close control, Escape handling, and focus restoration.
+• Include business-accurate draft content for the three required policy views; keep unknown legal-entity or data-handling details as explicit draft fields.
+• Do not leave javascript:void(0), empty hrefs, or dead controls.
+• Optional standalone policy routes can share the same policy content if the project supports routing.
+
+All internal navigation must target existing unique section IDs. Do not preserve Wawy anchors that point to sections excluded from this merge.
+
+6. RESPONSIVE BEHAVIOR
+
+Treat the measurements above as desktop references; adapt them without changing the page’s identity.
+
+• Desktop: two featured-offer cards, three comparison cards, three carousel cards, two disclosure cards, and a three-column footer.
+• Tablet: reduce gutters and heading sizes, allow suitable two-column arrangements, and show two carousel cards.
+• Mobile: stack the input/button, offer cards, pricing cards, disclosure cards, eligibility content, and footer columns; show one carousel card with swipe support.
+• Use fluid headings and prices rather than allowing clipping.
+• Keep the header wordmark and phone action usable at narrow widths.
+• Recompose the hero so its typography and right-side artwork remain readable.
+• Maintain meaningful overlap for the featured cards where space allows.
+• Make dialogs fit within the viewport with internal scrolling.
+• Avoid page-level horizontal scroll at 320px, 375px, 390px, 768px, 1024px, and 1440px widths.
+• Preserve readable disclosure and policy text.
+• Use clear focus states and comfortable touch targets.
+
+7. IMPLEMENTATION AND ACCEPTANCE
+
+Use the Google AI Studio project’s existing frontend setup. For a new compatible starter, use React and TypeScript with organized components and shared CSS variables. Keep dependencies minimal.
+
+Suggested component boundaries:
+Header, ZipChecker, PromoHero, FeaturedOffers, PlanComparison, RecognitionPanel, EligibilityBanner, ProductFaqCarousel, ServiceDisclosures, ServiceFaqAccordion, PrivacySummary, Footer, AdvisorDialog, and PolicyDialog.
+
+Keep business data separate from presentation. Render the page as real HTML components, not a screenshot or iframe of either reference.
+
+Use semantic landmarks, a sensible heading hierarchy, visible form labels, accessible buttons, meaningful image alternatives, and page metadata appropriate to the configured business. Do not add unrelated tracking.
+
+Before finishing:
+• Run the project and fix build/runtime errors.
+• Confirm that every requested section exists in the exact specified order.
+• Compare the page against the reference at the same desktop width, focusing on hero proportions, card overlap, container alignment, type scale, spacing, and footer completeness.
+• Check the ZIP validation, modal controls, carousel positions, FAQ expansion, internal links, and configured contact actions.
+• Inspect a narrow mobile layout for overflow and inaccessible content.
+• Record missing business inputs and any unavailable assets or unverified offer details in a concise README.
+• Report what was implemented and what remains dependent on owner-provided information.
+
+Final target: the main page should closely reproduce XFN Sales’ visual design, then continue naturally into Wawy Support’s entire disclosure-to-footer sequence, unified under XFN’s purple theme. Deliver the functioning implementation now.
+

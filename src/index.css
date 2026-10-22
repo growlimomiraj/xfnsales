@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+:root {
+  /* XFN Primary Visual System Colors */
+  --color-primary-purple: #6D2EFF;
+  --color-primary-purple-hover: #5A1FE0;
+  --color-deep-purple: #2B0A6E;
+  --color-pale-bg: #F4F4F6;
+  --color-surface-white: #FFFFFF;
+  --color-text-main: #0A0A0A;
+  --color-text-secondary: #5A5A5A;
+  --color-card-border: #E6E6EA;
+  --color-input-bg: #F7F7F9;
+  --color-input-border: #C9C9D1;
+
+  /* Tonal Lavender & Wawy-Recolored Tokens */
+  --color-lavender-surface: #F3EEFF;
+  --color-lavender-badge: #EAE2FF;
+  --color-lavender-border: #D9C9FF;
+  --color-footer-text: #D7CEEB;
+  --color-footer-link: #C6B2FF;
+  --color-footer-border: rgba(255, 255, 255, 0.14);
+
+  /* Gradients */
+  --gradient-recognition: linear-gradient(100deg, #EFEAFF, #F7F3FF 45%, #EAE3FF);
+  --gradient-eligibility: linear-gradient(100deg, #5B21E0, #7331F2);
+  --gradient-hero: linear-gradient(112deg, #2B0A6E 0%, #3C1194 52%, #5920D8 100%);
+
+  /* Shared Layout & Spacing Tokens */
+  --container-max: 1180px;
+  --container-pad: 24px;
+  --section-py-desktop: 72px;
+  --section-py-disclosure: 90px;
+  --grid-gap-main: 26px;
+  --radius-card: 16px;
+  --radius-disclosure-card: 20px;
+  --radius-banner: 24px;
+  --shadow-card: 0 6px 24px rgba(20, 10, 60, 0.09);
+
+  /* System Font Stack */
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-system);
+  color: var(--color-text-main);
+  background-color: var(--color-pale-bg);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-system);
+  color: var(--color-text-main);
+  background-color: var(--color-pale-bg);
+  overflow-x: hidden;
+}
+
+/* Shared 1180px Container (1132px interior with 24px horizontal padding) */
+.site-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+}
+
+/* Accessible Focus States */
+:focus-visible {
+  outline: 3px solid var(--color-primary-purple);
+  outline-offset: 2px;
+}
+
+/* Tabular numerals for pricing & ZIP metrics */
+.tabular-price {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

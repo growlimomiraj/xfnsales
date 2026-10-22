@@ -1,0 +1,6 @@
+{
+  "name": "ISP Plan Comparison & Referral Landing Page",
+  "description": "Independent internet plan comparison and referral service featuring multi-tier broadband offers, ZIP code format lookup, service disclosures, and consumer policies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
