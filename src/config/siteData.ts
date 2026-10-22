@@ -1,14 +1,14 @@
 /**
- * Central Business Configuration & Content (xfnsales.us + lower disclosure sequence)
+ * Central Business Configuration & Content (cabletvconsultation.com + lower disclosure sequence)
  */
 
-export const BRAND_NAME = "XfnSales";
-export const WORDMARK_LEADING = "xfn";
-export const WORDMARK_ACCENT = "sales";
-export const DOMAIN = "xfnsales.us";
+export const BRAND_NAME = "Cable TV Consultation";
+export const WORDMARK_LEADING = "cabletv";
+export const WORDMARK_ACCENT = "consultation";
+export const DOMAIN = "cabletvconsultation.com";
 export const PHONE_DISPLAY = "(888) 785-5617";
 export const PHONE_E164 = "+18887855617";
-export const SUPPORT_EMAIL = "support@xfnsales.us";
+export const SUPPORT_EMAIL = "support@cabletvconsultation.com";
 export const BUSINESS_ROLE = "independent comparison and referral service";
 
 export interface WordmarkParts {
