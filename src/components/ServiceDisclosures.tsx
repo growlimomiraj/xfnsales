@@ -1,143 +1,157 @@
 import React from "react";
-import { Check, Minus } from "lucide-react";
 import { SITE_CONTENT } from "../config/siteData";
 
 export const ServiceDisclosures: React.FC = () => {
-  const {
-    badge,
-    heading,
-    description,
-    limitationsCard,
-    assistanceCard,
-  } = SITE_CONTENT.serviceDisclosures;
+  const { badge, heading, description, notCard, doCard } =
+    SITE_CONTENT.serviceDisclosures;
 
   return (
-    <section
-      id="disclosures"
-      aria-labelledby="service-disclosures-heading"
-      className="w-full bg-[#F3EEFF] py-[64px] md:py-[90px] border-t border-b border-[#E3D8FF]"
-    >
-      <div className="site-container">
-        {/* Centered Header Block (~720px wide) */}
-        <div className="max-w-[720px] mx-auto text-center mb-11 md:mb-14">
-          <div className="inline-block text-[12px] font-extrabold tracking-[0.14em] uppercase text-[#5B21E0] mb-3">
-            {badge}
+    <section className="wawy-disclaimer-section" id="wawy-disclaimer">
+      <div className="xfn-container">
+        <div className="wawy-sec-head" style={{ marginBottom: "30px" }}>
+          <div className="wawy-disclaimer-badge">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>{badge}</span>
           </div>
-
-          <h2
-            id="service-disclosures-heading"
-            className="text-[28px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.16] tracking-tight text-[#0A0A0A] mb-4"
-            style={{ textWrap: "balance" }}
-          >
-            {heading}
-          </h2>
-
-          <p className="text-[15.5px] sm:text-[17px] leading-[1.6] text-[#4A4458]">
-            {description}
-          </p>
+          <h2>{heading}</h2>
+          <p>{description}</p>
         </div>
 
-        {/* Two Large White Cards Side by Side (24px grid gap, 20px card radius, 32px 28px padding) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[24px] items-stretch">
-          {/* Card 1: Limitations / Service Boundaries (Subtle cool-neutral tonal header & minus icons) */}
-          <article
-            className="bg-[#FFFFFF] rounded-[20px] border border-[#DCD6EA] px-6 py-7 sm:px-[28px] sm:py-[32px] flex flex-col justify-between"
-            style={{ boxShadow: "var(--shadow-card)" }}
-          >
-            <div>
-              <div className="flex items-center justify-between gap-3 pb-5 mb-6 border-b border-[#E6E6EA]">
-                <div>
-                  <span className="block text-[11.5px] font-extrabold tracking-[0.13em] uppercase text-[#5A5A5A] mb-1">
-                    {limitationsCard.badgeLabel}
-                  </span>
-                  <h3 className="text-[22px] sm:text-[24px] font-extrabold tracking-tight text-[#0A0A0A]">
-                    {limitationsCard.title}
-                  </h3>
-                </div>
-                <span
+        <div className="wawy-disclaimer-grid">
+          {/* Card 1: What We Do NOT Do */}
+          <div className="wawy-disc-box-not">
+            <div className="wawy-disc-title">
+              <div className="wawy-disc-icon wawy-disc-icon-not">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
                   aria-hidden="true"
-                  className="w-10 h-10 rounded-[12px] bg-[#F4F4F6] border border-[#DCDCE2] text-[#3A3A44] inline-flex items-center justify-center shrink-0"
                 >
-                  <Minus className="w-5 h-5" strokeWidth={2.6} />
-                </span>
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
               </div>
-
-              <p className="text-[14.5px] sm:text-[15px] text-[#5A5A5A] mb-6 leading-[1.5]">
-                {limitationsCard.subtitle}
-              </p>
-
-              <ul className="space-y-5" aria-label={limitationsCard.title}>
-                {limitationsCard.points.map((point) => (
-                  <li key={point.id} className="flex items-start gap-3.5">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 w-6 h-6 rounded-full bg-[#EDEDFA] border border-[#D4CEE6] text-[#3F3A52] inline-flex items-center justify-center shrink-0"
-                    >
-                      <Minus className="w-3.5 h-3.5" strokeWidth={2.8} />
-                    </span>
-                    <div>
-                      <h4 className="text-[15.5px] sm:text-[16px] font-bold text-[#0A0A0A] leading-snug mb-1">
-                        {point.label}
-                      </h4>
-                      <p className="text-[14.5px] sm:text-[15px] leading-[1.55] text-[#5A5A5A]">
-                        {point.description}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
-
-          {/* Card 2: Assistance Offered (Primary purple tonal header & check icons) */}
-          <article
-            className="bg-[#FFFFFF] rounded-[20px] border border-[#D2C2FF] px-6 py-7 sm:px-[28px] sm:py-[32px] flex flex-col justify-between"
-            style={{ boxShadow: "var(--shadow-card)" }}
-          >
-            <div>
-              <div className="flex items-center justify-between gap-3 pb-5 mb-6 border-b border-[#EAE3FF]">
-                <div>
-                  <span className="block text-[11.5px] font-extrabold tracking-[0.13em] uppercase text-[#6D2EFF] mb-1">
-                    {assistanceCard.badgeLabel}
-                  </span>
-                  <h3 className="text-[22px] sm:text-[24px] font-extrabold tracking-tight text-[#0A0A0A]">
-                    {assistanceCard.title}
-                  </h3>
+              <div>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: "19px",
+                    fontWeight: 800,
+                    color: "#0a0a0a",
+                  }}
+                >
+                  {notCard.title}
+                </h3>
+                <div
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#5a5a5a",
+                  }}
+                >
+                  {notCard.subtitle}
                 </div>
-                <span
-                  aria-hidden="true"
-                  className="w-10 h-10 rounded-[12px] bg-[#EFEAFF] border border-[#D9C9FF] text-[#6D2EFF] inline-flex items-center justify-center shrink-0"
-                >
-                  <Check className="w-5 h-5" strokeWidth={2.8} />
-                </span>
               </div>
-
-              <p className="text-[14.5px] sm:text-[15px] text-[#5A5A5A] mb-6 leading-[1.5]">
-                {assistanceCard.subtitle}
-              </p>
-
-              <ul className="space-y-5" aria-label={assistanceCard.title}>
-                {assistanceCard.points.map((point) => (
-                  <li key={point.id} className="flex items-start gap-3.5">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 w-6 h-6 rounded-full bg-[#6D2EFF] text-[#FFFFFF] inline-flex items-center justify-center shrink-0"
-                    >
-                      <Check className="w-3.5 h-3.5" strokeWidth={3} />
-                    </span>
-                    <div>
-                      <h4 className="text-[15.5px] sm:text-[16px] font-bold text-[#0A0A0A] leading-snug mb-1">
-                        {point.label}
-                      </h4>
-                      <p className="text-[14.5px] sm:text-[15px] leading-[1.55] text-[#5A5A5A]">
-                        {point.description}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </div>
-          </article>
+
+            <ul className="wawy-disc-list">
+              {notCard.items.map((item, idx) => (
+                <li className="wawy-disc-item" key={idx}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#5a5a5a"
+                    strokeWidth="2.5"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Card 2: What We DO */}
+          <div className="wawy-disc-box-do">
+            <div className="wawy-disc-title">
+              <div className="wawy-disc-icon wawy-disc-icon-do">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  aria-hidden="true"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <div>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: "19px",
+                    fontWeight: 800,
+                    color: "#2b0a6e",
+                  }}
+                >
+                  {doCard.title}
+                </h3>
+                <div
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#6d2eff",
+                  }}
+                >
+                  {doCard.subtitle}
+                </div>
+              </div>
+            </div>
+
+            <ul className="wawy-disc-list">
+              {doCard.items.map((item, idx) => (
+                <li className="wawy-disc-item" key={idx}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#6d2eff"
+                    strokeWidth="2.5"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

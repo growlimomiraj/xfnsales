@@ -16,173 +16,74 @@ import { ServiceDisclosures } from "./components/ServiceDisclosures";
 import { ServiceFaqAccordion } from "./components/ServiceFaqAccordion";
 import { PrivacySummary } from "./components/PrivacySummary";
 import { Footer } from "./components/Footer";
-import { AdvisorDialog, PlanDetailsPayload } from "./components/AdvisorDialog";
+import { AdvisorDialog } from "./components/AdvisorDialog";
 import { PolicyDialog } from "./components/PolicyDialog";
 import { PolicyType } from "./config/policyData";
-import { FeaturedOffer } from "./config/siteData";
 
 export default function App() {
   const [zipCode, setZipCode] = useState<string>("");
   const [isAdvisorOpen, setIsAdvisorOpen] = useState<boolean>(false);
-  const [selectedPlanName, setSelectedPlanName] = useState<string | null>(null);
-  const [selectedPlanPrice, setSelectedPlanPrice] = useState<number | null>(null);
-  const [planDetailsPayload, setPlanDetailsPayload] =
-    useState<PlanDetailsPayload | null>(null);
-  const [advisorSource, setAdvisorSource] = useState<string>("");
   const [activePolicy, setActivePolicy] = useState<PolicyType | null>(null);
 
-  const handleOpenAdvisor = useCallback(
-    (context?: {
-      source: string;
-      planName?: string;
-      planPrice?: number;
-      details?: PlanDetailsPayload;
-    }) => {
-      setAdvisorSource(context?.source ?? "Site Action");
-      setSelectedPlanName(context?.planName ?? null);
-      setSelectedPlanPrice(
-        typeof context?.planPrice === "number" ? context.planPrice : null
-      );
-      setPlanDetailsPayload(context?.details ?? null);
-      setIsAdvisorOpen(true);
-    },
-    []
-  );
-
-  const handleValidZipSubmit = useCallback(
-    (validatedZip: string) => {
-      setZipCode(validatedZip);
-      handleOpenAdvisor({
-        source: `ZIP Code Format Check (${validatedZip})`,
-      });
-    },
-    [handleOpenAdvisor]
-  );
-
-  const handleSelectOfferOrTier = useCallback(
-    (planName: string, priceDollars: number, sectionSource: string) => {
-      handleOpenAdvisor({
-        source: sectionSource,
-        planName,
-        planPrice: priceDollars,
-      });
-    },
-    [handleOpenAdvisor]
-  );
-
-  const handleViewPlanDetails = useCallback(
-    (
-      title: string,
-      details: FeaturedOffer["fullDetails"],
-      sectionSource: string
-    ) => {
-      handleOpenAdvisor({
-        source: sectionSource,
-        details: {
-          title,
-          ...details,
-        },
-      });
-    },
-    [handleOpenAdvisor]
-  );
-
-  const handleSelectEligibility = useCallback(() => {
-    handleOpenAdvisor({
-      source: "Eligibility Strip CTA",
-      planName: "Essential Home Internet Program (Under $15/mo Preview)",
-    });
-  }, [handleOpenAdvisor]);
+  const handleValidZipSubmit = useCallback((validatedZip: string) => {
+    setZipCode(validatedZip);
+    setIsAdvisorOpen(true);
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F4F4F6] text-[#0A0A0A]">
-      {/* A. Compact Header */}
-      <Header
-        onOpenAdvisor={(ctx) =>
-          handleOpenAdvisor({
-            source: ctx?.source ?? "Header Telephone CTA",
-            planName: ctx?.planName,
-          })
-        }
-      />
+    <div id="xfn-root">
+      {/* ========== HEADER ========== */}
+      <Header />
 
-      <main id="main-content" className="flex-1">
-        {/* B. ZIP Finder */}
+      <main id="xfn-top">
+        {/* ========== ZIP CODE CAPTURE ========== */}
         <ZipChecker
           zipCode={zipCode}
           onZipChange={setZipCode}
           onValidZipSubmit={handleValidZipSubmit}
         />
 
-        {/* C. Internet Category Heading & D. Purple Promotional Hero */}
+        {/* ========== PAGE TITLE & HERO ========== */}
         <PromoHero />
 
-        {/* E. Two Overlapping Featured-Offer Cards */}
-        <FeaturedOffers
-          onSelectOffer={(offerName, price) =>
-            handleSelectOfferOrTier(offerName, price, "Featured Offer Card")
-          }
-          onViewDetails={(title, details) =>
-            handleViewPlanDetails(title, details, "Featured Offer Details")
-          }
-        />
+        {/* ========== HERO PRICE CARDS ========== */}
+        <FeaturedOffers />
 
-        {/* F. Main Three-Column Plan Comparison */}
-        <PlanComparison
-          onSelectTier={(tierName, price) =>
-            handleSelectOfferOrTier(tierName, price, "Plan Comparison Card")
-          }
-          onViewDetails={(title, details) =>
-            handleViewPlanDetails(title, details, "Plan Comparison Details")
-          }
-        />
+        {/* ========== PLANS ========== */}
+        <PlanComparison />
 
-        {/* G. Recognition-Style Panel */}
+        {/* ========== AWARD BAND ========== */}
         <RecognitionPanel />
 
-        {/* H. Eligibility Strip */}
-        <EligibilityBanner onSelectEligibility={handleSelectEligibility} />
+        {/* ========== ELIGIBILITY ========== */}
+        <EligibilityBanner />
 
-        {/* I. XFN-Style Product FAQ Carousel */}
+        {/* ========== XFN FAQ CAROUSEL ========== */}
         <ProductFaqCarousel />
 
-        {/* J. Imported Service-Disclosure Section — Start of Wawy Content */}
+        {/* ========== WAWY LOWER SECTION 1: DISCLOSURES ========== */}
         <ServiceDisclosures />
 
-        {/* K. Imported Service FAQ Accordion */}
+        {/* ========== WAWY LOWER SECTION 2: SERVICE FAQ ACCORDION ========== */}
         <ServiceFaqAccordion />
 
-        {/* L. Imported Privacy and Consumer-Trust Summary */}
+        {/* ========== WAWY LOWER SECTION 3: PRIVACY SUMMARY ========== */}
         <PrivacySummary />
       </main>
 
-      {/* M. Complete Final Footer */}
-      <Footer
-        onOpenPolicy={(policy) => setActivePolicy(policy)}
-        onOpenAdvisor={(ctx) =>
-          handleOpenAdvisor({
-            source: ctx?.source ?? "Footer Contact",
-          })
-        }
-      />
+      {/* ========== WAWY LOWER SECTION 4: COMPLETE FOOTER ========== */}
+      <Footer onOpenPolicy={(policy) => setActivePolicy(policy)} />
 
-      {/* Interactive Advisor / ZIP / Plan Details Modal */}
+      {/* ========== XFN SUCCESS MODAL ========== */}
       <AdvisorDialog
         isOpen={isAdvisorOpen}
         onClose={() => setIsAdvisorOpen(false)}
-        zipCode={zipCode}
-        onZipChange={setZipCode}
-        selectedPlanName={selectedPlanName}
-        selectedPlanPrice={selectedPlanPrice}
-        planDetailsPayload={planDetailsPayload}
-        sourceLabel={advisorSource}
       />
 
-      {/* Interactive Policy Modal (Privacy Policy, Terms & Conditions, Full Disclaimer) */}
+      {/* ========== WAWY POLICY MODAL ========== */}
       <PolicyDialog
         activePolicy={activePolicy}
         onClose={() => setActivePolicy(null)}
-        onSelectPolicy={(policy) => setActivePolicy(policy)}
       />
     </div>
   );

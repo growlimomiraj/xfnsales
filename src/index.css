@@ -1,100 +1,1428 @@
 @import "tailwindcss";
 
-:root {
-  /* XFN Primary Visual System Colors */
-  --color-primary-purple: #6D2EFF;
-  --color-primary-purple-hover: #5A1FE0;
-  --color-deep-purple: #2B0A6E;
-  --color-pale-bg: #F4F4F6;
-  --color-surface-white: #FFFFFF;
-  --color-text-main: #0A0A0A;
-  --color-text-secondary: #5A5A5A;
-  --color-card-border: #E6E6EA;
-  --color-input-bg: #F7F7F9;
-  --color-input-border: #C9C9D1;
-
-  /* Tonal Lavender & Wawy-Recolored Tokens */
-  --color-lavender-surface: #F3EEFF;
-  --color-lavender-badge: #EAE2FF;
-  --color-lavender-border: #D9C9FF;
-  --color-footer-text: #D7CEEB;
-  --color-footer-link: #C6B2FF;
-  --color-footer-border: rgba(255, 255, 255, 0.14);
-
-  /* Gradients */
-  --gradient-recognition: linear-gradient(100deg, #EFEAFF, #F7F3FF 45%, #EAE3FF);
-  --gradient-eligibility: linear-gradient(100deg, #5B21E0, #7331F2);
-  --gradient-hero: linear-gradient(112deg, #2B0A6E 0%, #3C1194 52%, #5920D8 100%);
-
-  /* Shared Layout & Spacing Tokens */
-  --container-max: 1180px;
-  --container-pad: 24px;
-  --section-py-desktop: 72px;
-  --section-py-disclosure: 90px;
-  --grid-gap-main: 26px;
+/* ============================================================
+   XfnSales landing page + Wawy lower sections (Purple Theme)
+   ============================================================ */
+:root,
+#xfn-root {
+  --brand: #6d2eff;
+  --brand-mid: #4b17d6;
+  --brand-deep: #2b0a6e;
+  --ink: #0a0a0a;
+  --muted: #5a5a5a;
+  --faint: #767676;
+  --surface: #ffffff;
+  --bg: #f4f4f6;
+  --line: #e6e6ea;
   --radius-card: 16px;
-  --radius-disclosure-card: 20px;
-  --radius-banner: 24px;
-  --shadow-card: 0 6px 24px rgba(20, 10, 60, 0.09);
-
-  /* System Font Stack */
-  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius-panel: 24px;
+  --maxw: 1180px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: var(--font-system);
-  color: var(--color-text-main);
-  background-color: var(--color-pale-bg);
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+html,
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-system);
-  color: var(--color-text-main);
-  background-color: var(--color-pale-bg);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+#xfn-root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Shared 1180px Container (1132px interior with 24px horizontal padding) */
-.site-container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--container-pad);
-  padding-right: var(--container-pad);
+#xfn-root *,
+#xfn-root *::before,
+#xfn-root *::after {
+  box-sizing: border-box;
+  font-family: var(--font);
 }
 
-/* Accessible Focus States */
-:focus-visible {
-  outline: 3px solid var(--color-primary-purple);
+#xfn-root img {
+  max-width: 100%;
+  display: block;
+  border: 0;
+}
+
+#xfn-root a {
+  color: inherit;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+#xfn-root button,
+#xfn-root input {
+  margin: 0;
+  font-family: var(--font);
+  box-shadow: none;
+}
+
+#xfn-root h1,
+#xfn-root h2,
+#xfn-root h3,
+#xfn-root h4 {
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+#xfn-root p {
+  margin: 0;
+}
+
+#xfn-root ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#xfn-root :focus-visible {
+  outline: 3px solid var(--brand);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Tabular numerals for pricing & ZIP metrics */
-.tabular-price {
-  font-variant-numeric: tabular-nums;
+#xfn-root .xfn-container {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+#xfn-root .xfn-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ============ buttons ============ */
+#xfn-root .xfn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+#xfn-root .xfn-btn:hover {
+  transform: translateY(-1px);
+}
+
+#xfn-root .xfn-btn-dark {
+  background: var(--ink);
+  color: #fff !important;
+}
+
+#xfn-root .xfn-btn-dark:hover {
+  background: #2a2a2a;
+}
+
+#xfn-root .xfn-btn-white {
+  background: #fff;
+  color: var(--ink) !important;
+}
+
+#xfn-root .xfn-btn-white:hover {
+  background: #f0f0f0;
+}
+
+#xfn-root .xfn-btn-outline {
+  background: #fff;
+  color: var(--ink) !important;
+  border-color: var(--ink);
+}
+
+#xfn-root .xfn-btn-outline:hover {
+  background: #f4f4f6;
+}
+
+#xfn-root .xfn-link-under {
+  font-size: 15px;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  color: inherit;
+}
+
+#xfn-root .xfn-link-under:hover {
+  color: var(--brand);
+}
+
+/* ============ header ============ */
+#xfn-root .xfn-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.2s ease;
+  width: 100%;
+}
+
+#xfn-root .xfn-site-header.xfn-scrolled {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.09);
+}
+
+#xfn-root .xfn-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 64px;
+}
+
+#xfn-root .xfn-wordmark {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  text-decoration: none !important;
+  color: var(--ink) !important;
+  flex: none;
+}
+
+#xfn-root .xfn-wordmark .xfn-w2 {
+  color: var(--brand);
+}
+
+#xfn-root .xfn-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  background: var(--brand);
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 11px 21px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+#xfn-root .xfn-call-btn:hover {
+  background: var(--brand-mid);
+  transform: translateY(-1px);
+}
+
+#xfn-root .xfn-call-btn svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ address / zip capture ============ */
+#xfn-root .xfn-addr-hero {
+  background: var(--bg);
+  padding: 52px 0 58px;
+  text-align: center;
+  width: 100%;
+}
+
+#xfn-root .xfn-addr-hero h2 {
+  font-size: clamp(30px, 4.6vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-addr-hero .xfn-addr-sub {
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 13px;
+}
+
+#xfn-root .xfn-addr-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-top: 34px;
+  text-align: left;
+}
+
+#xfn-root .xfn-addr-field {
+  flex: 1;
+  min-width: 0;
+}
+
+#xfn-root .xfn-addr-field label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+#xfn-root .xfn-addr-field input {
+  width: 100%;
+  height: 58px;
+  border: 1px solid #c9c9d1;
+  border-radius: 8px;
+  background: #f7f7f9;
+  padding: 0 18px;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-addr-field input:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+  background: #fff;
+}
+
+#xfn-root .xfn-addr-field.xfn-invalid input {
+  border-color: #c2185b;
+}
+
+#xfn-root .xfn-addr-err {
+  color: #c2185b;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 9px;
+}
+
+#xfn-root .xfn-addr-submit {
+  flex: none;
+  height: 58px;
+  border-radius: 8px;
+  padding: 0 32px;
+  font-size: 17px;
+}
+
+/* ============ page title ============ */
+#xfn-root .xfn-page-title {
+  background: var(--bg);
+  padding: 26px 0 44px;
+  width: 100%;
+}
+
+#xfn-root .xfn-page-title h1 {
+  color: var(--brand);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ============ hero banner ============ */
+#xfn-root .xfn-hero {
+  position: relative;
+  color: #fff;
+  padding: 78px 0 128px;
+  width: 100%;
+  background-color: var(--brand-deep);
+  background-image: linear-gradient(112deg, #26075f 0%, #3d11a8 42%, #5b21e0 72%, #7a3cf0 100%);
+}
+
+#xfn-root .xfn-hero.xfn-has-art {
+  background-image: url("/assets/Archer-Relaunch_Hero_Desktop-scaled.avif");
+  background-size: cover;
+  background-position: center;
+}
+
+#xfn-root .xfn-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+#xfn-root .xfn-hero-copy {
+  max-width: 540px;
+}
+
+#xfn-root .xfn-hero h2 {
+  font-size: clamp(28px, 4.2vw, 40px);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+#xfn-root .xfn-hero .xfn-lede {
+  font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 700;
+  margin-top: 14px;
+  color: #fff;
+}
+
+#xfn-root .xfn-hero .xfn-body {
+  font-size: 16px;
+  margin-top: 18px;
+  max-width: 470px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+#xfn-root .xfn-hero-badge {
+  display: none;
+  margin-left: auto;
+  align-items: center;
+  gap: 16px;
+}
+
+#xfn-root .xfn-hero-badge .xfn-num {
+  font-size: 96px;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+}
+
+#xfn-root .xfn-hero-badge .xfn-txt {
+  font-size: 26px;
+  line-height: 1.05;
+  font-weight: 300;
+}
+
+#xfn-root .xfn-hero-badge .xfn-txt b {
+  font-weight: 700;
+  display: block;
+}
+
+#xfn-root .xfn-hero:not(.xfn-has-art) .xfn-hero-badge {
+  display: flex;
+}
+
+/* ============ featured price cards ============ */
+#xfn-root .xfn-price-cards {
+  position: relative;
+  z-index: 5;
+  margin-top: -84px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+#xfn-root .xfn-card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 34px 32px;
+  box-shadow: 0 6px 24px rgba(20, 10, 60, 0.09);
+  text-align: left;
+}
+
+#xfn-root .xfn-card h3 {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 800;
+  margin: 0;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-card h3 .xfn-accent {
+  color: var(--brand);
+}
+
+#xfn-root .xfn-card .xfn-save {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+#xfn-root .xfn-card-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+/* ============ price numeral ============ */
+#xfn-root .xfn-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 22px;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-price .xfn-cur {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 6px;
+}
+
+#xfn-root .xfn-price .xfn-fig {
+  font-size: clamp(56px, 8vw, 76px);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+}
+
+#xfn-root .xfn-price .xfn-per {
+  font-size: 15px;
+  line-height: 1.15;
+  font-weight: 500;
+  align-self: flex-end;
+  padding-bottom: 4px;
+  margin-left: 4px;
+}
+
+#xfn-root .xfn-fineprint {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--faint);
+  text-align: center;
+  max-width: 880px;
+  margin: 26px auto 0;
+}
+
+/* ============ plans section ============ */
+#xfn-root .xfn-section {
+  padding: 72px 0;
+  background: var(--bg);
+  width: 100%;
+}
+
+#xfn-root .xfn-section-head h2 {
+  font-size: clamp(24px, 3.2vw, 33px);
+  font-weight: 800;
+  margin: 0;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-section-head h2 .xfn-accent {
+  color: var(--brand);
+}
+
+#xfn-root .xfn-section-head .xfn-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 10px;
+  max-width: 820px;
+}
+
+#xfn-plan-grid,
+#xfn-root .xfn-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-top: 34px;
+}
+
+#xfn-root .xfn-plan-card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 18px rgba(20, 10, 60, 0.07);
+  text-align: left;
+}
+
+#xfn-root .xfn-plan-name {
+  color: var(--brand);
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+}
+
+#xfn-root .xfn-plan-tag {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 8px;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-feat {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+#xfn-root .xfn-feat li {
+  display: flex;
+  gap: 12px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-feat li::before {
+  content: "";
+  flex: none;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  margin-top: 2px;
+  background: var(--brand)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1.6 6.3 4.5 9.2 10.4 3.1' fill='none' stroke='white' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center/11px no-repeat;
+}
+
+#xfn-root .xfn-feat li.xfn-strong {
+  font-weight: 700;
+}
+
+#xfn-root .xfn-plan-cta {
+  margin-top: auto;
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* ============ award band ============ */
+#xfn-root .xfn-award {
+  background: linear-gradient(100deg, #efeaff, #f7f3ff 45%, #eae3ff);
+  border-radius: var(--radius-panel);
+  padding: 48px 28px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+#xfn-root .xfn-award h3 {
+  color: var(--brand);
+  font-size: clamp(20px, 2.6vw, 27px);
+  font-weight: 800;
+  margin: 0;
+}
+
+#xfn-root .xfn-award p {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+#xfn-root .xfn-award .xfn-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #4a4a55;
+}
+
+#xfn-root .xfn-award .xfn-mark svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* ============ eligibility ============ */
+#xfn-root .xfn-eligibility {
+  background: linear-gradient(100deg, #5b21e0, #7331f2);
+  border-radius: var(--radius-panel);
+  padding: 34px 44px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+#xfn-root .xfn-ess-mark {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  flex: none;
+}
+
+#xfn-root .xfn-elig-copy {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+#xfn-root .xfn-elig-copy h3 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+#xfn-root .xfn-elig-copy p {
+  font-size: 15px;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ============ faq carousel ============ */
+#xfn-root .xfn-faq-wrap {
+  position: relative;
+  margin-top: 30px;
+}
+
+#xfn-root .xfn-faq-view {
+  overflow: hidden;
+}
+
+#xfn-root .xfn-faq-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#xfn-root .xfn-faq-card {
+  flex: 0 0 calc((100% - 40px) / 3);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 30px 28px;
+  text-align: left;
+}
+
+#xfn-root .xfn-faq-card h3 {
+  color: var(--brand);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#xfn-root .xfn-faq-card p {
+  font-size: 14.5px;
+  margin-top: 14px;
+  color: #2c2c2c;
+}
+
+#xfn-root .xfn-faq-card ul {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14.5px;
+  padding: 0;
+  list-style: none;
+}
+
+#xfn-root .xfn-faq-card ul li {
+  position: relative;
+  padding-left: 15px;
+  color: #2c2c2c;
+}
+
+#xfn-root .xfn-faq-card ul li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+}
+
+#xfn-root .xfn-car-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  z-index: 3;
+}
+
+#xfn-root .xfn-car-btn.xfn-prev {
+  left: -21px;
+}
+
+#xfn-root .xfn-car-btn.xfn-next {
+  right: -21px;
+}
+
+#xfn-root .xfn-car-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#xfn-root .xfn-car-btn[disabled] {
+  opacity: 0.32;
+  cursor: default;
+  box-shadow: none;
+}
+
+#xfn-root .xfn-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+#xfn-root .xfn-dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 0;
+  background: #c8c8d0;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+#xfn-root .xfn-dots button.xfn-on {
+  width: 24px;
+  background: var(--brand);
+}
+
+/* ============ xfn success modal ============ */
+#xfn-root .xfn-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#xfn-root .xfn-modal[hidden] {
+  display: none;
+}
+
+#xfn-root .xfn-modal-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 4, 40, 0.64);
+}
+
+#xfn-root .xfn-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  color: var(--ink);
+  border-radius: 22px;
+  padding: 42px 32px 36px;
+  text-align: center;
+  margin: auto;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  box-shadow: 0 30px 74px rgba(0, 0, 0, 0.42);
+  animation: xfnModalPop 0.22s ease both;
+}
+
+@keyframes xfnModalPop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#xfn-root .xfn-modal-box h2 {
+  font-size: clamp(24px, 3.2vw, 30px);
+  font-weight: 800;
+  color: var(--brand);
+  margin: 0;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+#xfn-root .xfn-modal-box p {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #2c2c2c;
+  margin-top: 12px;
+}
+
+#xfn-root .xfn-modal-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 24px;
+  margin-top: 24px;
+  border-radius: 999px;
+  background: #e50914;
+  color: #fff !important;
+  line-height: 1.3;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none !important;
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#xfn-root .xfn-modal-cta:hover {
+  background: #cc0813;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.45);
+}
+
+#xfn-root .xfn-modal-cta svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#xfn-root .xfn-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: #f1f1f5;
+  color: #55555f;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+#xfn-root .xfn-modal-close:hover {
+  background: #e4e4ea;
+  color: var(--ink);
+}
+
+#xfn-root .xfn-modal-close svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+/* ==========================================================================
+   WAWY LOWER SECTIONS (J, K, L, M) RECOLORED TO XFN PURPLE THEME
+   ========================================================================== */
+#xfn-root .wawy-sec-head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 52px;
+}
+
+#xfn-root .wawy-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #efeaff;
+  border: 1px solid #d8c8ff;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+#xfn-root .wawy-sec-head h2 {
+  font-size: clamp(26px, 3.8vw, 42px);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+
+#xfn-root .wawy-sec-head p {
+  font-size: 16.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* J. Disclosures Section */
+#xfn-root .wawy-disclaimer-section {
+  background: linear-gradient(100deg, #efeaff, #f7f3ff 45%, #eae3ff);
+  border-top: 1px solid #dfd3ff;
+  border-bottom: 1px solid #dfd3ff;
+  padding: clamp(60px, 7vw, 90px) 0;
+}
+
+#xfn-root .wawy-disclaimer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #d4c2ff;
+  color: var(--brand-mid);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+#xfn-root .wawy-disclaimer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  #xfn-root .wawy-disclaimer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+#xfn-root .wawy-disc-box-not {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  border: 2px solid #d9d6e5;
+  box-shadow: 0 6px 24px rgba(20, 10, 60, 0.07);
+}
+
+#xfn-root .wawy-disc-box-do {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  border: 2px solid #cbb6ff;
+  box-shadow: 0 6px 24px rgba(109, 46, 255, 0.09);
+}
+
+#xfn-root .wawy-disc-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+#xfn-root .wawy-disc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+#xfn-root .wawy-disc-icon-not {
+  background: #f4f4f6;
+  color: #3a3548;
+  border: 1px solid #dfdde8;
+}
+
+#xfn-root .wawy-disc-icon-do {
+  background: #efeaff;
+  color: var(--brand);
+  border: 1px solid #d8c8ff;
+}
+
+#xfn-root .wawy-disc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#xfn-root .wawy-disc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #2c2c2c;
+}
+
+#xfn-root .wawy-disc-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* K. Service FAQ Accordion */
+#xfn-root .wawy-faq-section {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 84px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+#xfn-root .wawy-faq-wrap {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#xfn-root .wawy-faq-item {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#xfn-root .wawy-faq-item.wawy-open {
+  border-color: var(--brand);
+  box-shadow: 0 8px 20px -4px rgba(109, 46, 255, 0.12);
+}
+
+#xfn-root .wawy-faq-header {
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 0;
+  text-align: left;
+  user-select: none;
+}
+
+#xfn-root .wawy-faq-header span.wawy-faq-q {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.35;
+}
+
+#xfn-root .wawy-faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+#xfn-root .wawy-faq-item.wawy-open .wawy-faq-icon {
+  transform: rotate(180deg);
+  background: #efeaff;
+  color: var(--brand);
+}
+
+#xfn-root .wawy-faq-body {
+  padding: 0 24px 22px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* L. Privacy Summary */
+#xfn-root .wawy-privacy-section {
+  background: var(--bg);
+  padding: clamp(60px, 8vw, 84px) 0;
+}
+
+#xfn-root .wawy-privacy-box {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  padding: 32px 28px;
+  box-shadow: 0 6px 24px rgba(20, 10, 60, 0.06);
+}
+
+#xfn-root .wawy-privacy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* M. Wawy Footer in Deep Purple with XFN Wordmark */
+#xfn-root .wawy-footer {
+  background-color: var(--brand-deep);
+  color: #d3c8eb;
+  padding: 64px 0 36px;
+  margin-bottom: 0 !important;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#xfn-root .wawy-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+@media (min-width: 768px) {
+  #xfn-root .wawy-footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+#xfn-root .wawy-footer h4 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 16px;
+}
+
+#xfn-root .wawy-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#xfn-root .wawy-footer-links a,
+#xfn-root .wawy-footer-links button {
+  color: #d3c8eb;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+#xfn-root .wawy-footer-links a:hover,
+#xfn-root .wawy-footer-links button:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#xfn-root .wawy-footer-disclaimer-box {
+  margin-top: 32px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  line-height: 1.6;
+  color: #cbbfe6;
+}
+
+#xfn-root .wawy-footer-bottom {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  color: #cbbfe6;
+}
+
+/* Policy Modal Overlay */
+#xfn-root .wawy-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 6, 48, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#xfn-root .wawy-modal-content {
+  background: #ffffff;
+  border-radius: 24px;
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 36px 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  animation: xfnModalPop 0.22s ease both;
+}
+
+#xfn-root .wawy-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#xfn-root .wawy-modal-close:hover {
+  background: #e4e4ea;
+  color: var(--ink);
+}
+
+#xfn-root .wawy-modal-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+/* ============ responsive (exact XFN breakpoints) ============ */
+@media (max-width: 1024px) {
+  #xfn-root .xfn-plan-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #xfn-root .xfn-faq-card {
+    flex-basis: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 1100px) {
+  #xfn-root .xfn-hero {
+    background-image: linear-gradient(112deg, #26075f, #3d11a8 42%, #5b21e0 72%, #7a3cf0) !important;
+  }
+  #xfn-root .xfn-hero-badge {
+    display: flex;
+  }
+}
+
+@media (max-width: 900px) {
+  #xfn-root .xfn-hero {
+    padding: 56px 0 110px;
+  }
+  #xfn-root .xfn-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #xfn-root .xfn-hero-badge {
+    margin-left: 0;
+    margin-top: 34px;
+  }
+  #xfn-price-cards,
+  #xfn-root .xfn-price-cards {
+    grid-template-columns: 1fr;
+    margin-top: -72px;
+  }
+  #xfn-root .xfn-eligibility {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  #xfn-root .xfn-section {
+    padding: 52px 0;
+  }
+  #xfn-root .xfn-card,
+  #xfn-root .xfn-plan-card {
+    padding: 28px 22px;
+  }
+  #xfn-root .xfn-plan-grid {
+    grid-template-columns: 1fr;
+  }
+  #xfn-root .xfn-faq-view {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  #xfn-root .xfn-faq-track {
+    transform: none !important;
+  }
+  #xfn-root .xfn-faq-card {
+    flex-basis: 86%;
+    scroll-snap-align: start;
+  }
+  #xfn-root .xfn-car-btn {
+    display: none;
+  }
+  #xfn-root .xfn-addr-hero {
+    padding: 38px 0 44px;
+  }
+  #xfn-root .xfn-addr-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+  #xfn-root .xfn-addr-submit {
+    width: 100%;
+  }
+  #xfn-root .xfn-modal-box {
+    padding: 34px 20px 28px;
+    border-radius: 18px;
+  }
+  #xfn-root .xfn-modal-box p {
+    font-size: 16px;
+  }
+  #xfn-root .xfn-modal-cta {
+    font-size: 17px;
+  }
+  #xfn-root .xfn-hero-badge .xfn-num {
+    font-size: 72px;
+  }
+  #xfn-root .xfn-hero-badge .xfn-txt {
+    font-size: 21px;
+  }
+}
+
+@media (max-height: 620px) {
+  #xfn-root .xfn-modal-box {
+    padding: 24px 20px 20px;
+  }
+  #xfn-root .xfn-modal-cta {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #xfn-root .xfn-call-btn .xfn-num {
+    display: none;
+  }
+  #xfn-root .xfn-call-btn {
+    padding: 11px 13px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  #xfn-root * {
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
