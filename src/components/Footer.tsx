@@ -4,7 +4,6 @@ import {
   DOMAIN,
   PHONE_DISPLAY,
   PHONE_E164,
-  SUPPORT_EMAIL,
   SITE_CONTENT,
   getWordmarkParts,
 } from "../config/siteData";
@@ -23,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
     <footer className="wawy-footer">
       <div className="xfn-container">
         <div className="wawy-footer-grid">
-          {/* Column 1: XFN Wordmark, Business Description, Toll-Free Phone, Support Email */}
+          {/* Column 1: Wordmark, Business Description, Toll-Free Phone */}
           <div>
             <div style={{ marginBottom: "12px" }}>
               <a
@@ -54,14 +53,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
                 style={{ color: "#c4b0ff", fontWeight: 700 }}
               >
                 {PHONE_DISPLAY}
-              </a>
-              <br />
-              <strong style={{ color: "#ffffff" }}>Support Email: </strong>{" "}
-              <a
-                href={`mailto:${SUPPORT_EMAIL}`}
-                style={{ color: "#c4b0ff" }}
-              >
-                {SUPPORT_EMAIL}
               </a>
             </div>
           </div>

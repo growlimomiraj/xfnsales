@@ -2,7 +2,6 @@ import {
   BRAND_NAME,
   DOMAIN,
   PHONE_DISPLAY,
-  SUPPORT_EMAIL,
 } from "./siteData";
 
 export type PolicyType = "privacy" | "terms" | "disclaimer";
@@ -33,7 +32,7 @@ export const POLICY_DOCUMENTS: Record<PolicyType, PolicyDocument> = {
       {
         heading: "Information We Collect",
         paragraphs: [
-          "We collect contact information (phone number, optional email) and address details (ZIP code and street location) strictly to query telecommunication coverage databases and match your household with compatible providers.",
+          "We collect contact information (phone number) and address details (ZIP code and street location) strictly to query telecommunication coverage databases and match your household with compatible providers.",
         ],
       },
       {
@@ -45,7 +44,7 @@ export const POLICY_DOCUMENTS: Record<PolicyType, PolicyDocument> = {
       {
         heading: "Contact & Opt-Out",
         paragraphs: [
-          `You may opt out of future communications at any time by calling our support line at ${PHONE_DISPLAY} or emailing ${SUPPORT_EMAIL}.`,
+          `You may opt out of future communications at any time by calling our support line at ${PHONE_DISPLAY}.`,
         ],
       },
     ],

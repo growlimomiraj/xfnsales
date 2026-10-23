@@ -8,7 +8,7 @@ export const WORDMARK_ACCENT = "consultation";
 export const DOMAIN = "cabletvconsultation.com";
 export const PHONE_DISPLAY = "(888) 676-0038";
 export const PHONE_E164 = "+18886760038";
-export const SUPPORT_EMAIL = "support@cabletvconsultation.com";
+export const SUPPORT_EMAIL = "";
 export const BUSINESS_ROLE = "independent comparison and referral service";
 
 export interface WordmarkParts {
@@ -332,7 +332,7 @@ export const SITE_CONTENT = {
         id: "priv-2",
         subheading: "Contact Details",
         body:
-          "Phone number and optional email provided when requesting telephone assistance, quote verification, or callback.",
+          "Phone number provided when requesting telephone assistance, quote verification, or callback.",
       },
       {
         id: "priv-3",
