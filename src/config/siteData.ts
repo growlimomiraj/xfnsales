@@ -6,8 +6,8 @@ export const BRAND_NAME = "Cable TV Consultation";
 export const WORDMARK_LEADING = "cabletv";
 export const WORDMARK_ACCENT = "consultation";
 export const DOMAIN = "cabletvconsultation.com";
-export const PHONE_DISPLAY = "(888) 785-5617";
-export const PHONE_E164 = "+18887855617";
+export const PHONE_DISPLAY = "(888) 676-0038";
+export const PHONE_E164 = "+18886760038";
 export const SUPPORT_EMAIL = "support@cabletvconsultation.com";
 export const BUSINESS_ROLE = "independent comparison and referral service";
 
@@ -24,7 +24,7 @@ export function getWordmarkParts(): WordmarkParts {
 }
 
 export function hasValidPhoneDestination(e164: string = PHONE_E164): boolean {
-  const cleaned = e164.trim();
+  const cleaned = e164.trim().replace(/[\s\-()]/g, "");
   if (!cleaned || cleaned.includes("[") || cleaned.includes("YOUR")) {
     return false;
   }
