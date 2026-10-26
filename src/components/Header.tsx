@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   PHONE_DISPLAY,
   PHONE_E164,
-  getWordmarkParts,
 } from "../config/siteData";
 
 export const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
-  const wordmark = getWordmarkParts();
 
   useEffect(() => {
     let ticking = false;
@@ -30,18 +28,14 @@ export const Header: React.FC = () => {
       data-cta-location="header"
     >
       <div className="xfn-container xfn-nav-inner">
-        <a className="xfn-wordmark" href="#xfn-top" aria-label="Cable TV Consultation">
+        <a className="xfn-wordmark xfn-brand-link" href="#xfn-top" aria-label="Cable TV Consultation">
           <img
             src="/logo.png"
             alt="Cable TV Consultation"
             className="xfn-brand-logo"
-            width="36"
-            height="36"
+            width="44"
+            height="44"
           />
-          <span>
-            {wordmark.leading}
-            <span className="xfn-w2">{wordmark.accent}</span>
-          </span>
         </a>
         <a
           className="xfn-call-btn"

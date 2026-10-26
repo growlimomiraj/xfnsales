@@ -5,7 +5,6 @@ import {
   PHONE_DISPLAY,
   PHONE_E164,
   SITE_CONTENT,
-  getWordmarkParts,
 } from "../config/siteData";
 import { PolicyType } from "../config/policyData";
 
@@ -14,7 +13,6 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
-  const wordmark = getWordmarkParts();
   const currentYear = new Date().getFullYear();
   const { description, navigationLinks, disclosureBoxText } = SITE_CONTENT.footer;
 
@@ -24,26 +22,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
         <div className="wawy-footer-grid">
           {/* Column 1: Wordmark, Business Description, Toll-Free Phone */}
           <div>
-            <div style={{ marginBottom: "12px" }}>
+            <div style={{ marginBottom: "16px" }}>
               <a
                 href="#xfn-top"
-                className="xfn-wordmark"
-                style={{ color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "10px" }}
+                className="xfn-wordmark xfn-brand-link"
+                style={{ display: "inline-block" }}
                 aria-label="Cable TV Consultation"
               >
                 <img
                   src="/logo.png"
                   alt="Cable TV Consultation"
-                  className="xfn-brand-logo"
-                  width="36"
-                  height="36"
+                  className="xfn-brand-logo xfn-brand-logo-footer"
+                  width="48"
+                  height="48"
                 />
-                <span>
-                  <span style={{ color: "#ffffff" }}>{wordmark.leading}</span>
-                  <span className="xfn-w2" style={{ color: "#b695ff" }}>
-                    {wordmark.accent}
-                  </span>
-                </span>
               </a>
             </div>
             <p
