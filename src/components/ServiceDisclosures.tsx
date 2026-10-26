@@ -6,7 +6,11 @@ export const ServiceDisclosures: React.FC = () => {
     SITE_CONTENT.serviceDisclosures;
 
   return (
-    <section className="wawy-disclaimer-section" id="wawy-disclaimer">
+    <section
+      className="wawy-disclaimer-section"
+      id="wawy-disclaimer"
+      data-cta-location="service_disclosures"
+    >
       <div className="xfn-container">
         <div className="wawy-sec-head" style={{ marginBottom: "30px" }}>
           <div className="wawy-disclaimer-badge">

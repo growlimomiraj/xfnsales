@@ -14,7 +14,7 @@ export const PromoHero: React.FC = () => {
       </div>
 
       {/* ========== HERO ========== */}
-      <section className="xfn-hero xfn-has-art" id="xfn-hero">
+      <section className="xfn-hero xfn-has-art" id="xfn-hero" data-cta-location="hero">
         <div className="xfn-container xfn-hero-inner">
           <div className="xfn-hero-copy">
             <h2>{hero.headline}</h2>

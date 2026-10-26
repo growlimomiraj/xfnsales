@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Header } from "./components/Header";
 import { ZipChecker } from "./components/ZipChecker";
 import { PromoHero } from "./components/PromoHero";
@@ -19,11 +19,16 @@ import { Footer } from "./components/Footer";
 import { AdvisorDialog } from "./components/AdvisorDialog";
 import { PolicyDialog } from "./components/PolicyDialog";
 import { PolicyType } from "./config/policyData";
+import { initCtaTracking } from "./utils/analytics";
 
 export default function App() {
   const [zipCode, setZipCode] = useState<string>("");
   const [isAdvisorOpen, setIsAdvisorOpen] = useState<boolean>(false);
   const [activePolicy, setActivePolicy] = useState<PolicyType | null>(null);
+
+  useEffect(() => {
+    return initCtaTracking();
+  }, []);
 
   const handleValidZipSubmit = useCallback((validatedZip: string) => {
     setZipCode(validatedZip);

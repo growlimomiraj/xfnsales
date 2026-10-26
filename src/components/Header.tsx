@@ -27,6 +27,7 @@ export const Header: React.FC = () => {
     <header
       className={`xfn-site-header${scrolled ? " xfn-scrolled" : ""}`}
       id="xfn-header"
+      data-cta-location="header"
     >
       <div className="xfn-container xfn-nav-inner">
         <a className="xfn-wordmark" href="#xfn-top">

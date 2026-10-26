@@ -15,7 +15,11 @@ export const EligibilityBanner: React.FC = () => {
   } = SITE_CONTENT.eligibilityBanner;
 
   return (
-    <section className="xfn-container" aria-label="Low-cost internet">
+    <section
+      className="xfn-container"
+      data-cta-location="eligibility_banner"
+      aria-label="Low-cost internet"
+    >
       <div className="xfn-eligibility">
         <p className="xfn-ess-mark">{programLabel}</p>
         <div className="xfn-elig-copy">

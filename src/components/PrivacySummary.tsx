@@ -5,7 +5,11 @@ export const PrivacySummary: React.FC = () => {
   const { badge, heading, intro, groups } = SITE_CONTENT.privacySummary;
 
   return (
-    <section className="wawy-privacy-section" id="wawy-privacy-summary">
+    <section
+      className="wawy-privacy-section"
+      id="wawy-privacy-summary"
+      data-cta-location="privacy_summary"
+    >
       <div className="xfn-container" style={{ maxWidth: "900px" }}>
         <div className="wawy-sec-head" style={{ marginBottom: "30px" }}>
           <div className="wawy-badge-tag">{badge}</div>

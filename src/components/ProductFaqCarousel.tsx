@@ -68,7 +68,11 @@ export const ProductFaqCarousel: React.FC = () => {
   const totalDots = isCarouselMode ? maxIdx + 1 : 0;
 
   return (
-    <section className="xfn-section" id="xfn-faq">
+    <section
+      className="xfn-section"
+      id="xfn-faq"
+      data-cta-location="faq_carousel"
+    >
       <div className="xfn-container">
         <div className="xfn-section-head">
           <h2>{heading}</h2>

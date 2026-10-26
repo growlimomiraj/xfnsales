@@ -6,7 +6,12 @@ export const RecognitionPanel: React.FC = () => {
     SITE_CONTENT.recognitionPanel;
 
   return (
-    <section className="xfn-container" id="xfn-award" aria-label="Recognition">
+    <section
+      className="xfn-container"
+      id="xfn-award"
+      data-cta-location="recognition_panel"
+      aria-label="Recognition"
+    >
       <div className="xfn-award">
         <h3>{heading}</h3>
         <p>

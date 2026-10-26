@@ -9,7 +9,11 @@ export const FeaturedOffers: React.FC = () => {
   const { featuredOffers, featuredOffersFinePrint } = SITE_CONTENT;
 
   return (
-    <section className="xfn-container" aria-label="Featured plans">
+    <section
+      className="xfn-container"
+      data-cta-location="featured_offers"
+      aria-label="Featured plans"
+    >
       <div className="xfn-price-cards">
         {featuredOffers.map((offer) => (
           <div className="xfn-card" key={offer.id}>

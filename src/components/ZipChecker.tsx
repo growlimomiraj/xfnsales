@@ -48,7 +48,11 @@ export const ZipChecker: React.FC<ZipCheckerProps> = ({
   };
 
   return (
-    <section className="xfn-addr-hero" id="xfn-start">
+    <section
+      className="xfn-addr-hero"
+      id="xfn-start"
+      data-cta-location="zip_checker"
+    >
       <div className="xfn-container">
         <h2>{heading}</h2>
         <p className="xfn-addr-sub">{subheading}</p>

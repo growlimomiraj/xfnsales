@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
   const { description, navigationLinks, disclosureBoxText } = SITE_CONTENT.footer;
 
   return (
-    <footer className="wawy-footer">
+    <footer className="wawy-footer" data-cta-location="footer">
       <div className="xfn-container">
         <div className="wawy-footer-grid">
           {/* Column 1: Wordmark, Business Description, Toll-Free Phone */}

@@ -15,7 +15,11 @@ export const PlanComparison: React.FC = () => {
   } = SITE_CONTENT.planComparison;
 
   return (
-    <section className="xfn-section" id="xfn-plans">
+    <section
+      className="xfn-section"
+      id="xfn-plans"
+      data-cta-location="plan_comparison"
+    >
       <div className="xfn-container">
         <div className="xfn-section-head">
           <h2>

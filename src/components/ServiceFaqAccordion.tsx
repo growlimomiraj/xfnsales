@@ -6,7 +6,11 @@ export const ServiceFaqAccordion: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
 
   return (
-    <section className="wawy-faq-section" id="wawy-faq">
+    <section
+      className="wawy-faq-section"
+      id="wawy-faq"
+      data-cta-location="service_faq"
+    >
       <div className="xfn-container">
         <div className="wawy-sec-head">
           <div className="wawy-badge-tag">{badge}</div>

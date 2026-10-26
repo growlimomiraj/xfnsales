@@ -59,6 +59,7 @@ export const PolicyDialog: React.FC<PolicyDialogProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="wawyPolicyTitle"
+        data-cta-location="policy_dialog"
       >
         <button
           ref={closeButtonRef}

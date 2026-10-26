@@ -65,6 +65,7 @@ export const AdvisorDialog: React.FC<AdvisorDialogProps> = ({
         aria-modal="true"
         aria-labelledby="xfn-okTitle"
         aria-describedby="xfn-okBody"
+        data-cta-location="advisor_dialog"
       >
         <button
           ref={closeRef}
