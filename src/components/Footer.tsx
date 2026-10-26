@@ -28,11 +28,21 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
               <a
                 href="#xfn-top"
                 className="xfn-wordmark"
-                style={{ color: "#ffffff", display: "inline-block" }}
+                style={{ color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "10px" }}
+                aria-label="Cable TV Consultation"
               >
-                <span style={{ color: "#ffffff" }}>{wordmark.leading}</span>
-                <span className="xfn-w2" style={{ color: "#b695ff" }}>
-                  {wordmark.accent}
+                <img
+                  src="/logo.png"
+                  alt="Cable TV Consultation"
+                  className="xfn-brand-logo"
+                  width="36"
+                  height="36"
+                />
+                <span>
+                  <span style={{ color: "#ffffff" }}>{wordmark.leading}</span>
+                  <span className="xfn-w2" style={{ color: "#b695ff" }}>
+                    {wordmark.accent}
+                  </span>
                 </span>
               </a>
             </div>

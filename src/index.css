@@ -198,12 +198,23 @@ body {
 }
 
 #xfn-root .xfn-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: 25px;
   font-weight: 600;
   letter-spacing: -0.045em;
   text-decoration: none !important;
   color: var(--ink) !important;
   flex: none;
+}
+
+#xfn-root .xfn-brand-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 #xfn-root .xfn-wordmark .xfn-w2 {
@@ -1412,6 +1423,14 @@ body {
 }
 
 @media (max-width: 480px) {
+  #xfn-root .xfn-wordmark {
+    font-size: 20px;
+    gap: 8px;
+  }
+  #xfn-root .xfn-brand-logo {
+    width: 28px;
+    height: 28px;
+  }
   #xfn-root .xfn-call-btn .xfn-num {
     display: none;
   }

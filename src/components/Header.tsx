@@ -30,9 +30,18 @@ export const Header: React.FC = () => {
       data-cta-location="header"
     >
       <div className="xfn-container xfn-nav-inner">
-        <a className="xfn-wordmark" href="#xfn-top">
-          {wordmark.leading}
-          <span className="xfn-w2">{wordmark.accent}</span>
+        <a className="xfn-wordmark" href="#xfn-top" aria-label="Cable TV Consultation">
+          <img
+            src="/logo.png"
+            alt="Cable TV Consultation"
+            className="xfn-brand-logo"
+            width="36"
+            height="36"
+          />
+          <span>
+            {wordmark.leading}
+            <span className="xfn-w2">{wordmark.accent}</span>
+          </span>
         </a>
         <a
           className="xfn-call-btn"
