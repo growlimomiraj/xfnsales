@@ -6,8 +6,8 @@ export const BRAND_NAME = "Cable TV Consultation";
 export const WORDMARK_LEADING = "cabletv";
 export const WORDMARK_ACCENT = "consultation";
 export const DOMAIN = "cabletvconsultation.com";
-export const PHONE_DISPLAY = "(888) 676-0038";
-export const PHONE_E164 = "+18886760038";
+export const PHONE_DISPLAY = "469-902-8003";
+export const PHONE_E164 = "+14699028003";
 export const SUPPORT_EMAIL = "";
 export const BUSINESS_ROLE = "independent comparison and referral service";
 

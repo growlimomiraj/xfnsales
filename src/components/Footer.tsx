@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
     <footer className="wawy-footer" data-cta-location="footer">
       <div className="xfn-container">
         <div className="wawy-footer-grid">
-          {/* Column 1: Wordmark, Business Description, Toll-Free Phone */}
+          {/* Column 1: Wordmark, Business Description, Phone */}
           <div>
             <div style={{ marginBottom: "16px" }}>
               <a
@@ -49,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
               {description}
             </p>
             <div style={{ fontSize: "13.5px" }}>
-              <strong style={{ color: "#ffffff" }}>Toll-Free Phone: </strong>{" "}
+              <strong style={{ color: "#ffffff" }}>Phone: </strong>{" "}
               <a
                 href={`tel:${PHONE_E164}`}
                 style={{ color: "#c4b0ff", fontWeight: 700 }}

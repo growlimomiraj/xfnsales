@@ -161,8 +161,8 @@ assert(extractButtonText(btn4) === 'Custom CTA Text', 'Prioritizes data-cta-text
 
 // Test 2: Button URL extraction
 const link1 = new MockElement('a') as any;
-link1.setAttribute('href', 'tel:8557713579');
-assert(extractButtonUrl(link1) === 'tel:8557713579', 'Extracts anchor href for phone CTA');
+link1.setAttribute('href', 'tel:4699028003');
+assert(extractButtonUrl(link1) === 'tel:4699028003', 'Extracts anchor href for phone CTA');
 
 const btnAccordion = new MockElement('button') as any;
 btnAccordion.setAttribute('aria-controls', 'wawy-acc-body-0');
@@ -173,7 +173,7 @@ const header = new MockElement('header') as any;
 header.id = 'xfn-header';
 header.setAttribute('data-cta-location', 'header');
 const headerBtn = new MockElement('a') as any;
-headerBtn.setAttribute('href', 'tel:8557713579');
+headerBtn.setAttribute('href', 'tel:4699028003');
 header.appendChild(headerBtn);
 assert(extractButtonLocation(headerBtn) === 'header', 'Identifies button location in header');
 
@@ -181,7 +181,7 @@ const advisorModal = new MockElement('div') as any;
 advisorModal.id = 'xfn-okModal';
 advisorModal.setAttribute('data-cta-location', 'advisor_dialog');
 const advisorCallBtn = new MockElement('a') as any;
-advisorCallBtn.setAttribute('href', 'tel:8557713579');
+advisorCallBtn.setAttribute('href', 'tel:4699028003');
 advisorModal.appendChild(advisorCallBtn);
 assert(extractButtonLocation(advisorCallBtn) === 'advisor_dialog', 'Identifies button location in dynamic advisor dialog');
 
