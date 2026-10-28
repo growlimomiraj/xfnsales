@@ -1,5 +1,7 @@
 /**
- * Verification test for universal cta_click tracking
+ * Verification test for Call CTA click tracking
+ * Ensures ONLY call buttons trigger the cta_click event,
+ * and that 'Find My Offer' / 'Find My Plan' and other non-call CTAs are excluded.
  */
 import {
   extractButtonText,
@@ -7,7 +9,8 @@ import {
   extractButtonLocation,
   trackCtaClick,
   initCtaTracking,
-  CTA_SELECTOR,
+  isCallButton,
+  CALL_CTA_SELECTOR,
   CtaClickEventData,
 } from '../src/utils/analytics';
 
@@ -38,6 +41,10 @@ class MockElement {
   constructor(tagName: string) {
     this.tagName = tagName.toUpperCase();
     this.classList = new MockClassList();
+  }
+
+  hasAttribute(name: string): boolean {
+    return this.getAttribute(name) !== null;
   }
 
   getAttribute(name: string): string | null {
@@ -90,7 +97,17 @@ class MockElement {
       const bracketMatch = sel.match(/\[([^\]]+)\]/);
       if (bracketMatch) {
         const inside = bracketMatch[1];
-        if (inside.includes('=')) {
+        if (inside.includes('^=')) {
+          const [attr, valWithQuotes] = inside.split('^=');
+          const expectedVal = valWithQuotes.replace(/['"]/g, '');
+          const actualVal = this.getAttribute(attr);
+          return !!actualVal && actualVal.startsWith(expectedVal);
+        } else if (inside.includes('*=')) {
+          const [attr, valWithQuotes] = inside.split('*=');
+          const expectedVal = valWithQuotes.replace(/['"]/g, '');
+          const actualVal = this.getAttribute(attr);
+          return !!actualVal && actualVal.includes(expectedVal);
+        } else if (inside.includes('=')) {
           const [attr, valWithQuotes] = inside.split('=');
           const expectedVal = valWithQuotes.replace(/['"]/g, '');
           return this.getAttribute(attr) === expectedVal;
@@ -138,111 +155,162 @@ function assert(condition: boolean, message: string) {
   }
 }
 
-console.log('--- Starting Universal CTA Click Event Verification ---');
+console.log('--- Starting Call CTA Click Tracking Verification ---');
 
-// Test 1: Button text extraction with priority order
-const btn1 = new MockElement('button') as any;
-btn1.innerText = 'Call Now';
-assert(extractButtonText(btn1) === 'Call Now', 'Extracts innerText correctly');
+// Test 1: Button text extraction for call CTAs
+const callBtn1 = new MockElement('a') as any;
+callBtn1.href = 'tel:+14699028003';
+callBtn1.innerText = 'Call Now: 469-902-8003';
+assert(extractButtonText(callBtn1) === 'Call Now: 469-902-8003', 'Extracts innerText correctly');
 
-const btn2 = new MockElement('button') as any;
-btn2.setAttribute('aria-label', 'Close modal');
-assert(extractButtonText(btn2) === 'Close modal', 'Extracts aria-label when no innerText');
+const callBtn2 = new MockElement('a') as any;
+callBtn2.href = 'tel:+14699028003';
+callBtn2.setAttribute('aria-label', 'Call 469-902-8003 hotline');
+assert(extractButtonText(callBtn2) === 'Call 469-902-8003 hotline', 'Extracts aria-label when no innerText');
 
-const btn3 = new MockElement('input') as any;
-btn3.setAttribute('type', 'submit');
-btn3.value = 'Check Availability';
-assert(extractButtonText(btn3) === 'Check Availability', 'Extracts input value for submit buttons');
-
-const btn4 = new MockElement('button') as any;
-btn4.setAttribute('data-cta-text', 'Custom CTA Text');
-btn4.innerText = 'Fallback';
-assert(extractButtonText(btn4) === 'Custom CTA Text', 'Prioritizes data-cta-text override');
+const callBtn3 = new MockElement('a') as any;
+callBtn3.href = 'tel:+14699028003';
+callBtn3.setAttribute('data-cta-text', 'Direct Hotline');
+callBtn3.innerText = 'Fallback';
+assert(extractButtonText(callBtn3) === 'Direct Hotline', 'Prioritizes data-cta-text override');
 
 // Test 2: Button URL extraction
-const link1 = new MockElement('a') as any;
-link1.setAttribute('href', 'tel:4699028003');
-assert(extractButtonUrl(link1) === 'tel:4699028003', 'Extracts anchor href for phone CTA');
+const phoneLink = new MockElement('a') as any;
+phoneLink.setAttribute('href', 'tel:+14699028003');
+assert(extractButtonUrl(phoneLink) === 'tel:+14699028003', 'Extracts anchor href for phone CTA');
 
-const btnAccordion = new MockElement('button') as any;
-btnAccordion.setAttribute('aria-controls', 'wawy-acc-body-0');
-assert(extractButtonUrl(btnAccordion) === '#wawy-acc-body-0', 'Extracts aria-controls as target anchor');
+// Test 3: isCallButton detection
+assert(isCallButton(phoneLink), 'Identifies anchor with tel: href as call button');
 
-// Test 3: Button Location extraction
+const nonCallSubmit = new MockElement('button') as any;
+nonCallSubmit.setAttribute('type', 'submit');
+nonCallSubmit.classList.add('xfn-addr-submit');
+nonCallSubmit.innerText = 'Find My Plan';
+assert(!isCallButton(nonCallSubmit), 'Identifies "Find My Plan" submit button as NON-call CTA');
+
+const faqAccordion = new MockElement('button') as any;
+faqAccordion.classList.add('wawy-faq-header');
+faqAccordion.innerText = 'What speeds do I get?';
+assert(!isCallButton(faqAccordion), 'Identifies FAQ accordion header as NON-call CTA');
+
+const modalClose = new MockElement('button') as any;
+modalClose.classList.add('xfn-modal-close');
+assert(!isCallButton(modalClose), 'Identifies modal close button as NON-call CTA');
+
+// Test 4: Button Location identification
 const header = new MockElement('header') as any;
 header.id = 'xfn-header';
 header.setAttribute('data-cta-location', 'header');
-const headerBtn = new MockElement('a') as any;
-headerBtn.setAttribute('href', 'tel:4699028003');
-header.appendChild(headerBtn);
-assert(extractButtonLocation(headerBtn) === 'header', 'Identifies button location in header');
+const headerCallBtn = new MockElement('a') as any;
+headerCallBtn.classList.add('xfn-call-btn');
+headerCallBtn.setAttribute('href', 'tel:+14699028003');
+header.appendChild(headerCallBtn);
+assert(extractButtonLocation(headerCallBtn) === 'header', 'Identifies button location in header');
 
 const advisorModal = new MockElement('div') as any;
 advisorModal.id = 'xfn-okModal';
 advisorModal.setAttribute('data-cta-location', 'advisor_dialog');
 const advisorCallBtn = new MockElement('a') as any;
-advisorCallBtn.setAttribute('href', 'tel:4699028003');
+advisorCallBtn.classList.add('xfn-modal-cta');
+advisorCallBtn.setAttribute('href', 'tel:+14699028003');
 advisorModal.appendChild(advisorCallBtn);
 assert(extractButtonLocation(advisorCallBtn) === 'advisor_dialog', 'Identifies button location in dynamic advisor dialog');
 
-const policyModal = new MockElement('div') as any;
-policyModal.id = 'wawyPolicyModal';
-policyModal.setAttribute('data-cta-location', 'policy_dialog');
-const policyCloseBtn = new MockElement('button') as any;
-policyCloseBtn.setAttribute('aria-label', 'Close modal');
-policyModal.appendChild(policyCloseBtn);
-assert(extractButtonLocation(policyCloseBtn) === 'policy_dialog', 'Identifies button location in dynamic policy dialog');
-
-// Test 4: Direct trackCtaClick pushes correct payload structure
+// Test 5: Direct trackCtaClick pushes correct payload structure
 trackCtaClick({
-  button_text: 'Order Online',
-  button_url: 'https://cabletvconsultation.com/order',
-  button_location: 'featured_offers',
+  button_text: '469-902-8003',
+  button_url: 'tel:+14699028003',
+  button_location: 'header',
 });
 
 const lastPush: CtaClickEventData = mockDataLayer[mockDataLayer.length - 1];
 assert(lastPush.event === 'cta_click', 'Pushes event named "cta_click"');
-assert(lastPush.button_text === 'Order Online', 'Includes correct button_text parameter');
-assert(lastPush.button_url === 'https://cabletvconsultation.com/order', 'Includes correct button_url parameter');
+assert(lastPush.button_text === '469-902-8003', 'Includes correct button_text parameter');
+assert(lastPush.button_url === 'tel:+14699028003', 'Includes correct button_url parameter');
 assert(lastPush.page_url === 'https://cabletvconsultation.com/', 'Includes correct page_url parameter');
-assert(lastPush.button_location === 'featured_offers', 'Includes correct button_location parameter');
+assert(lastPush.button_location === 'header', 'Includes correct button_location parameter');
 
-// Test 5: Verify event delegation and deduplication
+// Test 6: Verify click listener triggers ONLY for call buttons and rejects others
 const cleanup = initCtaTracking();
 const clickHandler = (global as any).document.listeners.click[0];
 assert(typeof clickHandler === 'function', 'Registers click listener on document');
 
 const initialLength = mockDataLayer.length;
-const testEvent = {
-  target: headerBtn,
-};
 
-// Simulate single click
-clickHandler(testEvent);
-assert(mockDataLayer.length === initialLength + 1, 'Triggers cta_click on valid CTA click');
-assert(mockDataLayer[mockDataLayer.length - 1].button_location === 'header', 'Captured header CTA click');
+// A) Click on valid call button in header -> MUST FIRE
+const callEvent = { target: headerCallBtn };
+clickHandler(callEvent);
+assert(mockDataLayer.length === initialLength + 1, 'Triggers cta_click on valid call button click');
+assert(mockDataLayer[mockDataLayer.length - 1].button_location === 'header', 'Captured header call button click');
 
-// Simulate duplicate event instance (same Event object dispatched again)
-clickHandler(testEvent);
+// B) Duplicate same event instance -> MUST BE DEDUPLICATED
+clickHandler(callEvent);
 assert(mockDataLayer.length === initialLength + 1, 'Prevents duplicate firing from same event instance');
 
-// Simulate rapid duplicate click on same element within debounce window (< 250ms)
-const rapidSecondEvent = { target: headerBtn };
-clickHandler(rapidSecondEvent);
+// C) Rapid double click (<250ms) -> MUST BE DEBOUNCED
+const rapidSecondCall = { target: headerCallBtn };
+clickHandler(rapidSecondCall);
 assert(mockDataLayer.length === initialLength + 1, 'Prevents duplicate firing from rapid double clicks');
 
-// Simulate clicking a non-CTA element (e.g. plain paragraph text)
-const plainParagraph = new MockElement('p') as any;
-plainParagraph.innerText = 'Just some descriptive body copy';
-const pEvent = { target: plainParagraph };
-clickHandler(pEvent);
-assert(mockDataLayer.length === initialLength + 1, 'Ignores clicks on non-CTA text elements');
+// D) Click on nested element inside call button (e.g. span inside card call button) -> MUST FIRE
+const cardCallBtn = new MockElement('a') as any;
+cardCallBtn.setAttribute('href', 'tel:+14699028003');
+const cardSpan = new MockElement('span') as any;
+cardSpan.innerText = 'Shop internet';
+cardCallBtn.appendChild(cardSpan);
+
+const nestedCallEvent = { target: cardSpan };
+clickHandler(nestedCallEvent);
+assert(mockDataLayer.length === initialLength + 2, 'Triggers cta_click when clicking child element inside call button');
+
+const lengthBeforeNonCalls = mockDataLayer.length;
+
+// E) Click on 'Find My Offer' / 'Find My Plan' submit button -> MUST NOT FIRE!
+const zipSection = new MockElement('section') as any;
+zipSection.id = 'xfn-start';
+zipSection.setAttribute('data-cta-location', 'zip_checker');
+zipSection.appendChild(nonCallSubmit);
+
+const findOfferEvent = { target: nonCallSubmit };
+clickHandler(findOfferEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls, 'DOES NOT fire cta_click on "Find My Offer / Plan" submit button');
+
+// F) Click on FAQ Accordion Header -> MUST NOT FIRE!
+const faqEvent = { target: faqAccordion };
+clickHandler(faqEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls, 'DOES NOT fire cta_click on FAQ accordion header');
+
+// G) Click on Modal Close button -> MUST NOT FIRE!
+const modalCloseEvent = { target: modalClose };
+clickHandler(modalCloseEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls, 'DOES NOT fire cta_click on modal close button');
+
+// H) Click on Footer Policy button (e.g. Privacy Policy) -> MUST NOT FIRE!
+const policyBtn = new MockElement('button') as any;
+policyBtn.innerText = 'Privacy Policy';
+const policyEvent = { target: policyBtn };
+clickHandler(policyEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls, 'DOES NOT fire cta_click on Privacy Policy button');
+
+// I) Click on ordinary link without tel: (e.g. #xfn-faq details anchor) -> MUST NOT FIRE!
+const detailsLink = new MockElement('a') as any;
+detailsLink.setAttribute('href', '#xfn-faq');
+detailsLink.innerText = 'View details';
+const detailsEvent = { target: detailsLink };
+clickHandler(detailsEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls, 'DOES NOT fire cta_click on anchor links without tel:');
+
+// J) Click on Advisor Dialog Hotline call button -> MUST FIRE!
+const advisorCallEvent = { target: advisorCallBtn };
+clickHandler(advisorCallEvent);
+assert(mockDataLayer.length === lengthBeforeNonCalls + 1, 'Triggers cta_click on Advisor Dialog Call Hotline button');
+assert(mockDataLayer[mockDataLayer.length - 1].button_location === 'advisor_dialog', 'Captured advisor dialog call click');
 
 cleanup();
 
 console.log(`\nVerification Complete: ${passedTests}/${totalTests} tests passed.`);
 if (passedTests === totalTests) {
-  console.log('ALL UNIVERSAL CTA CLICK EVENT TESTS PASSED SUCCESSFULLY!');
+  console.log('ALL CALL CTA CLICK EVENT TESTS PASSED SUCCESSFULLY!');
 } else {
   process.exit(1);
 }

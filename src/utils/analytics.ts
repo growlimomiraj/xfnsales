@@ -1,9 +1,14 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * Universal CTA Click Tracking for Google Tag Manager (GTM) & GA4
+ * Call CTA Click Tracking for Google Tag Manager (GTM) & GA4
  * Event name: cta_click
  * Parameters: button_text, button_url, page_url, button_location
+ * 
+ * NOTE: CTA click tracking is strictly restricted to Call buttons
+ * (e.g. tel: links, header call button, card/plan call buttons, advisor hotline).
+ * Non-call CTAs (such as 'Find My Plan' / 'Find My Offer', accordion headers,
+ * carousel arrows, navigation links, and modal close buttons) are intentionally excluded.
  */
 
 export interface CtaClickEventData {
@@ -22,22 +27,20 @@ declare global {
 }
 
 /**
- * CSS Selector matching all clickable CTA elements across the entire application
+ * CSS Selector matching all call CTA elements across the entire application.
+ * Restricted strictly to direct call buttons and phone triggers.
  */
-export const CTA_SELECTOR = [
-  'button',
-  'a[href]',
-  'input[type="button"]',
-  'input[type="submit"]',
-  '[role="button"]',
-  '.xfn-btn',
+export const CALL_CTA_SELECTOR = [
+  'a[href^="tel:"]',
+  'a[href*="tel:"]',
   '.xfn-call-btn',
-  '.xfn-modal-cta',
-  '.xfn-car-btn',
-  '.wawy-faq-header',
-  '[data-cta]',
-  '[data-cta-button]',
+  '[data-call-button]',
+  '[data-cta-type="call"]',
+  '[data-cta="call"]',
 ].join(', ');
+
+// Export CTA_SELECTOR alias for backward compatibility
+export const CTA_SELECTOR = CALL_CTA_SELECTOR;
 
 /**
  * Clean up text content by collapsing whitespace
@@ -47,7 +50,65 @@ function cleanText(text: string): string {
 }
 
 /**
- * Extract clean, descriptive text for any CTA button
+ * Check whether an element or any of its ancestors is a call CTA button.
+ * Matches tel: links, .xfn-call-btn, or explicit call data attributes.
+ */
+export function findCallButton(element: HTMLElement | null): HTMLElement | null {
+  if (!element) return null;
+
+  // 1. Selector match via closest() if supported
+  try {
+    if (typeof element.closest === 'function') {
+      const match = element.closest<HTMLElement>(CALL_CTA_SELECTOR);
+      if (match) return match;
+    }
+  } catch {
+    // Fallback if querySelector engine lacks full selector support
+  }
+
+  // 2. Traverse up ancestors to check for tel: links or explicit call attributes
+  let curr: HTMLElement | null = element;
+  while (curr && curr !== (typeof document !== 'undefined' ? document.body : null)) {
+    // Anchor href starting with tel:
+    const href = curr.getAttribute('href') || (curr as any).href || '';
+    if (typeof href === 'string' && href.trim().toLowerCase().startsWith('tel:')) {
+      return curr;
+    }
+
+    // Call class names
+    if (curr.classList && curr.classList.contains('xfn-call-btn')) {
+      return curr;
+    }
+
+    // Explicit call data attributes
+    const ctaUrl = curr.getAttribute('data-cta-url') || curr.getAttribute('data-button-url') || '';
+    if (ctaUrl.trim().toLowerCase().startsWith('tel:')) {
+      return curr;
+    }
+
+    if (
+      (typeof curr.hasAttribute === 'function' ? curr.hasAttribute('data-call-button') : curr.getAttribute('data-call-button') !== null) ||
+      curr.getAttribute('data-cta-type') === 'call' ||
+      curr.getAttribute('data-cta') === 'call'
+    ) {
+      return curr;
+    }
+
+    curr = curr.parentElement;
+  }
+
+  return null;
+}
+
+/**
+ * Helper to test if a given element is a call button
+ */
+export function isCallButton(element: HTMLElement | null): boolean {
+  return findCallButton(element) !== null;
+}
+
+/**
+ * Extract clean, descriptive text for a call CTA button
  */
 export function extractButtonText(element: HTMLElement): string {
   // 1. Explicit data attribute override
@@ -74,27 +135,16 @@ export function extractButtonText(element: HTMLElement): string {
     return cleanText(title);
   }
 
-  // 5. Input value
+  // 5. Input value fallback
   if (element.tagName && element.tagName.toLowerCase() === 'input' && 'value' in element && (element as any).value) {
     return cleanText(String((element as any).value));
   }
 
-  // 6. Contextual icon / control fallbacks
-  if (element.classList && element.classList.contains('xfn-modal-close') || element.getAttribute('aria-label') === 'Close') {
-    return 'Close';
-  }
-  if (element.classList && element.classList.contains('xfn-prev')) {
-    return 'Previous Question';
-  }
-  if (element.classList && element.classList.contains('xfn-next')) {
-    return 'Next Question';
-  }
-
-  return 'CTA Button';
+  return 'Call Button';
 }
 
 /**
- * Extract destination URL, tel link, or action anchor for any CTA button
+ * Extract destination URL, tel link, or action anchor for the CTA button
  */
 export function extractButtonUrl(element: HTMLElement): string {
   // 1. Explicit data attribute override
@@ -114,28 +164,6 @@ export function extractButtonUrl(element: HTMLElement): string {
     if ('href' in element && (element as any).href) {
       return (element as any).href;
     }
-  }
-
-  // 3. Form submit button
-  if (tag === 'input' || tag === 'button') {
-    const form = ('form' in element ? (element as any).form : null) || element.closest('form');
-    if (form) {
-      const action = form.getAttribute('action');
-      if (action && action.trim()) {
-        return action.trim();
-      }
-    }
-  }
-
-  // 4. Modal or accordion controls
-  const ariaControls = element.getAttribute('aria-controls');
-  if (ariaControls) {
-    return `#${ariaControls}`;
-  }
-
-  const dataTarget = element.getAttribute('data-target');
-  if (dataTarget) {
-    return dataTarget;
   }
 
   return typeof window !== 'undefined' ? window.location.href : '';
@@ -250,7 +278,7 @@ export function trackCtaClick(params: {
 
   const payload: CtaClickEventData = {
     event: 'cta_click',
-    button_text: params.button_text || 'CTA Button',
+    button_text: params.button_text || 'Call Button',
     button_url: params.button_url || window.location.href,
     page_url: params.page_url || window.location.href,
     button_location: params.button_location || 'main',
@@ -271,8 +299,9 @@ let lastClickedElement: HTMLElement | null = null;
 
 /**
  * Initialize universal click listener across document.
- * Uses event delegation to seamlessly capture clicks on any button,
- * including dynamically rendered dialogs and future components.
+ * Strictly captures clicks on Call CTA buttons only (tel: links, header call button,
+ * featured/plan call buttons, advisor hotline).
+ * Ignores all non-call CTAs (e.g. 'Find My Plan' / 'Find My Offer', accordions, modal close).
  */
 export function initCtaTracking(): () => void {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -288,36 +317,29 @@ export function initCtaTracking(): () => void {
     const target = event.target as HTMLElement | null;
     if (!target) return;
 
-    // 2. Traverse up to find the closest interactive CTA button or link
-    const cta = target.closest<HTMLElement>(CTA_SELECTOR);
-    if (!cta) return;
-
-    // 3. Ignore non-clickable inputs (e.g. typing into the zip text input)
-    if (
-      cta.tagName &&
-      cta.tagName.toLowerCase() === 'input' &&
-      cta.getAttribute('type') !== 'submit' &&
-      cta.getAttribute('type') !== 'button'
-    ) {
+    // 2. Identify if the clicked element (or an ancestor) is a Call button
+    const callCta = findCallButton(target);
+    if (!callCta) {
+      // Excluded: Find My Offer, Find My Plan, Accordions, Carousel buttons, Modal close, etc.
       return;
     }
 
-    // 4. Debounce rapid identical clicks on the exact same element within 250ms
+    // 3. Debounce rapid identical clicks on the exact same element within 250ms
     const now = Date.now();
-    if (lastClickedElement === cta && now - lastClickTimestamp < 250) {
+    if (lastClickedElement === callCta && now - lastClickTimestamp < 250) {
       return;
     }
     lastClickTimestamp = now;
-    lastClickedElement = cta;
+    lastClickedElement = callCta;
     handledEvents.add(event);
 
-    // 5. Extract event parameters
-    const button_text = extractButtonText(cta);
-    const button_url = extractButtonUrl(cta);
+    // 4. Extract event parameters from the call CTA element
+    const button_text = extractButtonText(callCta);
+    const button_url = extractButtonUrl(callCta);
     const page_url = window.location.href;
-    const button_location = extractButtonLocation(cta);
+    const button_location = extractButtonLocation(callCta);
 
-    // 6. Push cta_click to GTM dataLayer
+    // 5. Push cta_click to GTM dataLayer
     trackCtaClick({
       button_text,
       button_url,
